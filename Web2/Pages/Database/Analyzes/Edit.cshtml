@@ -1,0 +1,83 @@
+﻿@page
+@model Web2.Pages.Database.Analyzes.EditModel
+
+@{
+    Layout = null;
+}
+
+@{
+	ViewData["Title"] = "Edit";
+}
+
+<body>
+
+<h1>Редактирование</h1>
+
+<h4>Анализы</h4>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form asp-page-handler="edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Analyzes.id_analysis" />
+            <div class="form-group">
+                <label>Номер пациента</label>
+                <input asp-for="P_A.id_patient" class="form-control" min="1" />
+                <span asp-validation-for="P_A.id_patient" class="text-danger"></span>
+            </div>
+                <div class="form-group">
+                    <label>Дата забора</label>
+                    <input type="date" value="@Model.Analyzes.date.ToString("yyyy-MM-dd")" asp-for="Analyzes.date" class="form-control" id="day" min="1925-01-01" max="" />
+                    <span asp-validation-for="Analyzes.date" class="text-danger"></span>
+                </div>
+            <div class="form-group">
+                <label>Кальций сыворостки крови (ммоль/л)</label>
+                <input asp-for="Analyzes.serum_calcium" class="form-control" min="0" />
+                <span asp-validation-for="Analyzes.serum_calcium" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Фосфор сыворотки крови (ммоль/л)</label>
+                <input asp-for="Analyzes.serum_phosphorus" class="form-control" min="0" />
+                <span asp-validation-for="Analyzes.serum_phosphorus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Оксипролин сыворотки крови (мкмоль/л)</label>
+                <input asp-for="Analyzes.serum_oxyproline" class="form-control" min="0" />
+                <span asp-validation-for="Analyzes.serum_oxyproline" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Эксреция кальция (мМ/сутки)</label>
+                <input asp-for="Analyzes.calcium_excretion" class="form-control" min="0" />
+                <span asp-validation-for="Analyzes.calcium_excretion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Экскреция фосфора (ммоль/л)</label>
+                <input asp-for="Analyzes.phosphorus_excretion" class="form-control" min="0" />
+                <span asp-validation-for="Analyzes.phosphorus_excretion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Экскреция оксипролина (мкм/мг креатина)</label>
+                <input asp-for="Analyzes.oxyproline_excretion" class="form-control" min="0" />
+                <span asp-validation-for="Analyzes.oxyproline_excretion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Степень выраженности ДСТ (в баллах)</label>
+                <input asp-for="Analyzes.severity_of_dst" class="form-control" min="0" />
+                <span asp-validation-for="Analyzes.severity_of_dst" class="text-danger"></span>
+            </div>
+            <p>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+            </p>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+</body>

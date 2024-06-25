@@ -1,0 +1,97 @@
+﻿@page
+@model Web2.Pages.ExcelModel
+@{
+	ViewData["Title"] = "Excel";
+}
+@{
+	if (ViewData["Message"] != null)
+	{
+		<div>
+			@ViewData["Message"]
+		</div>
+	}
+}
+
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+</head>
+
+<body>
+    <div style="padding:30px;">
+
+    <div class="all_windows" style="width: 600px;">
+		<form asp-page-handler="Import" method="post" enctype="multipart/form-data">
+            <i class="fas fa-file-excel" style="font-size: 36px; position: relative; top: 7px;"></i>
+            <input class="g-button" type="file" name="file"/>
+            <button class="c-button" type="submit">Загрузить</button>
+		</form>
+	</div>
+
+
+	<div class="table-responsive">
+        <form asp-page-handler="Add" method="post">
+            <p>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="form-label">Таблица</label>
+                        <select class="form-select" name="table_name" asp-items="Model.GetName()">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+            </p>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <table id="tblCustomers" class="table table-hover">
+            <thead>
+                <tr class="table-secondary">
+                    @if (Model.Data.Count != 0)
+                    {
+                        @for (int k = 0; k < Model.Data[0].Count; k++)
+                        {
+                            <th role="columnheader">
+                                @Html.DisplayFor(modelItem => @Model.Data[0][k])
+                            </th>
+                        }
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                
+            @for (int i = 1; i < Model.Data.Count; i++)
+            {
+                <tr>
+                    @for (int j = 0; j < Model.Data[i].Count; j++)
+                    {
+                        <td>
+                            <input type="text" class="form-control" name="Data[@j]" asp-for="Data[i][j]" />
+                        </td>
+                    }
+                </tr>
+            }
+			</tbody>
+		</table>
+			<input type="submit" class="c-button" value="Отправить" />
+		</form>
+    </div>
+    </div>
+
+    @section scripts{
+
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#tblCustomers').DataTable({
+                    language: {
+                        url: "https://cdn.datatables.net/plug-ins/1.13.4/i18n/ru.json",
+                    },
+                });
+                $('.dataTables_length').addClass('bs-select');
+
+            });
+        </script>
+    }
+</body>

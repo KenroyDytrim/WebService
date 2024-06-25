@@ -1,0 +1,118 @@
+﻿@page
+@model Web2.Pages.Database.Examinations.CreateModel
+@{
+	ViewData["Title"] = "Create";
+}
+
+<h1>Добавление</h1>
+
+<h4>Диспансеризация</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <input asp-for="idP" name="idP" style="display:none" />
+            <input asp-for="varR" name="varR" style="display:none" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label>Номер пациента</label>
+                <input asp-for="P_E.id_patient" class="form-control" value="@Model.idP" min="1" />
+                <span asp-validation-for="P_E.id_patient" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Дата прохождения</label>
+                <input asp-for="Examination.date" class="form-control" type="date" id="day" min="1925-01-01" max=""/>
+                <span asp-validation-for="Examination.date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Время удержания позы</label>
+                <input asp-for="Examination.posture_holding_time" class="form-control" min="0" max="20" step="0.1" type="number" />
+                <span asp-validation-for="Examination.posture_holding_time" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Величина кифоза в градусах в грудном отделе позвоночника</label>
+                <input asp-for="Examination.the_amount_of_kyphosis_in_degress" class="form-control" min="0" max="120" step="1" type="number" />
+                <span asp-validation-for="Examination.the_amount_of_kyphosis_in_degress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Изменение контуров замыкательных пластинок</label>
+                <input asp-for="Examination.changing_the_contours_of_the_end_plates" class="checkbox" />
+                <span asp-validation-for="Examination.changing_the_contours_of_the_end_plates" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Клиновидная форма тел позвонков</label>
+                <input asp-for="Examination.wedgeshaped_vertebral_bodies" class="checkbox" />
+                <span asp-validation-for="Examination.wedgeshaped_vertebral_bodies" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Грыжи Шморля</label>
+                <input asp-for="Examination.schmorl_hernia" class="checkbox" />
+                <span asp-validation-for="Examination.schmorl_hernia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Остеопороз тел позвонков</label>
+                <input asp-for="Examination.osteoporosis_of_the_vertebrae" class="checkbox" />
+                <span asp-validation-for="Examination.osteoporosis_of_the_vertebrae" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Уменьшение высоты межпозвоночного диска</label>
+                <input asp-for="Examination.decrease_in_the_height_of_the_intervertebral_disc" class="checkbox" />
+                <span asp-validation-for="Examination.decrease_in_the_height_of_the_intervertebral_disc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Изменение контуров апофизов</label>
+                <input asp-for="Examination.change_in_the_contours_of_the_apophyses" class="checkbox" />
+                <span asp-validation-for="Examination.change_in_the_contours_of_the_apophyses" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Признаки остеохондроза</label>
+                <input asp-for="Examination.signs_of_osteochondrosis" class="checkbox" />
+                <span asp-validation-for="Examination.signs_of_osteochondrosis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Стабилографические изменения</label>
+                <input asp-for="Examination.stabilographic_changes" class="checkbox" />
+                <span asp-validation-for="Examination.stabilographic_changes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>ЭНМГ</label>
+                <input asp-for="Examination.enmg" class="checkbox" />
+                <span asp-validation-for="Examination.enmg" class="text-danger"></span>
+            </div>
+            <p>
+            <div class="form-group">
+                <input type="submit" value="Добавить" class="btn btn-primary" />
+            </div>
+            </p>
+        </form>
+    </div>
+</div>
+
+<div>
+    @if (Model.varR == 0)
+    {
+        <a asp-page="./Examinations">Назад</a>
+    }
+    else
+    {
+        <a href="/Database/Patient_Examinations?id=@Model.idP">Назад</a>
+    }
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+
+        const options = {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+        }
+
+        const date = new Date()
+        const tomorrow = date.toLocaleString("ru", options).split('.').reverse().join('-')
+        document.getElementById("day").setAttribute("max", tomorrow)
+    </script>
+}

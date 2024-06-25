@@ -1,0 +1,248 @@
+﻿@page
+@model Web2.Pages.LogModel
+@{
+	@if (!User.Identity.IsAuthenticated)
+	{
+		ViewData["Title"] = "Вход в личный кабинет";
+	}
+	else
+	{
+		ViewData["Title"] = "Личный кабинет";
+	}
+}
+@{
+	if (ViewData["Message"] != null)
+	{
+		<div>
+			@ViewData["Message"]
+		</div>
+	}
+}
+
+<head>
+	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+</head>
+
+<body>
+
+	@if (!User.Identity.IsAuthenticated){
+		<div data-aos="fade-up-left" class="parent">
+		<div class="auth_dialog_header">
+			<span class="auth_dialog_title">
+				<span class="auth_dialog_title_second">
+					Личный кабинет
+				</span>
+				<span class="auth_dialog_title_third">
+					сотрудника
+				</span>
+			</span>
+		</div>
+		<div class="block">
+			<form asp-page-handler="Login" method="post">
+				<fieldset class="fieldsetA"> 
+			<legend class="legentA">Вход в личный кабинет</legend> 
+			<div class="divA"> 
+				<label for="siteLogin" class="labelLogin">Логин</label>
+							<input name="email" asp-for="mod.Email" class="inputA" value="" id="siteLogin" type="text" />
+				<span asp-validation-for="mod.Email" class="text-danger"></span>
+			</div> 
+			<div class="divA">
+				<label for="sitePass" class="labelLogin">Пароль</label>
+							<input name="password" asp-for="mod.Password" class="inputA" value="" id="sitePass" type="password" />
+				<i class="password-control fas fa-eye"></i>
+				<span asp-validation-for="mod.Password" class="text-danger"></span>
+			</div>
+						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="divA">
+				<input type="checkbox" name="rememberme" value="True"/>
+				<span>запомнить меня</span>
+			</div>
+			<div class="divA">
+				<input value="Войти" style="width: 150px" class="inputA c-button" type="submit" />
+			</div>
+			
+			<div>
+				<p><a href="/Account/ForgotPassword">Забыли пароль?</a></p>
+			</div>
+
+		</fieldset> 
+	</form>
+	</div>
+		</div>
+	}
+
+	else
+	{
+		<div data-aos="fade-up-left">
+
+		<div class="table-responsive">
+
+				<div style="display: flex; flex-wrap: nowrap; justify-content: flex-start; align-items: center;">
+
+			<h2> Мой профиль |</h2>
+
+				@foreach (var item in Model.user)
+				{
+					<div>
+						<a class="bt-ur3" style="font-size: 1.25rem;" title="Настройки" onclick="openModal({ url: '/Account/Edit', data: '@item.Id' })"
+						   datd-toggle="ajax-modal" data-target="Modal">
+							<i class="fas fa-cog"></i>
+						</a>
+					</div>
+				}
+
+				</div>
+
+			<div style="display: flex; justify-content: space-between;">
+
+				<div class="all_windows" style="padding: 20px; height: 50%; margin: 0px 50px 0px 0px;">
+
+			<table id="tblCustomers" class="table table-hover">
+				@foreach (var item in Model.user)
+				{
+					<tr>
+						<td>
+							Имя
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Name)
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Фамилия
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Surname)
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Email
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Email)
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Телефон
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Phone)
+						</td>
+					</tr>
+				}
+			</table>
+			</div>
+
+				<div class="calendar-wrapper">
+					<button id="btnPrev" type="button">Предыдущий</button>
+					<button id="btnNext" type="button">Следующий</button>
+					<div id="divCal"></div>
+				</div>
+
+				</div>
+
+			<div class="all_windows" style="margin: 10px 0px 0px 0px;">
+
+			@if (User.IsInRole("Doctor"))
+					{
+						<div>
+						<h7>
+							Подключенные функции |  🟢Доктора
+						</h7>
+						</div>
+
+				<div style="padding:10px">
+					<button class="c-button" onclick="document.location='/Database/Patients/Patients'">Пациенты</button>
+				</div>
+					}
+			@if (User.IsInRole("Admin"))
+			{
+						<div>
+						<h7>
+							Подключенные функции |  🟢Админа
+						</h7>
+						</div>
+
+				<div style="padding:10px">
+					<button class="c-button" onclick="document.location='/Admin/AdminPanel'">Панель администратора</button>
+				</div>
+			}
+			<div style="padding:10px">
+				<form asp-page-handler="Logout" method="post">
+					<input value="Выйти" class="inputA c-button" type="submit" />
+				</form>
+			</div>
+
+		</div>
+		</div>
+		</div>
+	}
+
+ @section scripts{
+
+	<script src="~/scripts/log.js"></script>
+
+	<partial name="_ValidationScriptsPartial" />
+	<script>
+		$(document).ready(function(){ 
+			if($("#siteLogin").val()!='') 
+			{ 
+				$("#siteLogin").prev().text(''); 
+				$("#sitePass").prev().text(''); 
+			} 
+			/*связь события и получение полем фокуса*/ 
+			$("div > input").focus( 
+				function(e) 
+				{ 
+					var clicked = $(e.target), 
+					clickedId = clicked.attr("id"); 
+			/* удаление текста из label при получении фокуса для поля логина*/ 
+			if(clickedId=="siteLogin") 
+			{ 
+				clicked.prev().text(''); 
+			} /*тоже самое для пароля*/ 
+			else if(clickedId=="sitePass") 
+			{ 
+				clicked.prev().text(''); 
+			} 
+				}); 
+			/*потеря фокуса полем*/ 
+			$("div > input").blur( 
+				function(e) 
+				{ 
+					var clicked = $(e.target), 
+					clickedId = clicked.attr("id"); 
+					if(clickedId=="siteLogin") 
+					{ 
+						if(clicked.val()=='') clicked.prev().text('Логин'); 
+					} 
+					else if(clickedId=="sitePass") 
+					{ 
+						if(clicked.val()=='') clicked.prev().text('Пароль');
+					} 
+				}); 
+			});
+	</script>
+
+	<script>
+			$('body').on('click', '.password-control', function () {
+				if ($('#sitePass').attr('type') == 'password') {
+					$(this).removeClass('fas fa-eye');
+					$(this).addClass('view');
+					$(this).addClass('fas fa-eye-slash');
+					$('#sitePass').attr('type', 'text');
+				} else {
+					$(this).removeClass('view');
+					$(this).removeClass('fas fa-eye-slash');
+					$(this).addClass('fas fa-eye');
+					$('#sitePass').attr('type', 'password');
+				}
+				return false;
+			});
+	</script>
+}
+
+</body>
