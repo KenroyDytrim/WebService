@@ -1,0 +1,98 @@
+﻿@page
+@model Web2.Pages.Database.Analyzes.CreateModel
+@{
+	ViewData["Title"] = "Create";
+}
+
+<h1>Добавление</h1>
+
+<h4>Анализы</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <input asp-for="idP" name="idP" style="display:none" />
+            <input asp-for="varR" name="varR" style="display:none" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label>Номер пациента</label>
+                <input asp-for="P_A.id_patient" class="form-control" value="@Model.idP" min="1"/>
+                <span asp-validation-for="P_A.id_patient" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Дата забора</label>
+                <input asp-for="Analyzes.date" class="form-control" type="date" id="day" min="1925-01-01" max=""/>
+                <span asp-validation-for="Analyzes.date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Кальций сыворостки крови (ммоль/л)</label>
+                <input asp-for="Analyzes.serum_calcium" class="form-control" min="0" max="30" step="0.1" type="number" />
+                <span asp-validation-for="Analyzes.serum_calcium" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Фосфор сыворотки крови (ммоль/л)</label>
+                <input asp-for="Analyzes.serum_phosphorus" class="form-control" min="0" max="30" step="0.1" type="number" />
+                <span asp-validation-for="Analyzes.serum_phosphorus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Оксипролин сыворотки крови (мкмоль/л)</label>
+                <input asp-for="Analyzes.serum_oxyproline" class="form-control" min="0" max="30" step="0.1" type="number" />
+                <span asp-validation-for="Analyzes.serum_oxyproline" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Экскреция кальция (мМ/сутки)</label>
+                <input asp-for="Analyzes.calcium_excretion" class="form-control" min="0" max="30" step="0.1" type="number" />
+                <span asp-validation-for="Analyzes.calcium_excretion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Экскреция фосфора (ммоль/л)</label>
+                <input asp-for="Analyzes.phosphorus_excretion" class="form-control" min="0" max="30" step="0.1" type="number" />
+                <span asp-validation-for="Analyzes.phosphorus_excretion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Экскреция оксипролина (мкм/мг креатина)</label>
+                <input asp-for="Analyzes.oxyproline_excretion" class="form-control" min="0" max="30" step="0.1" type="number" />
+                <span asp-validation-for="Analyzes.oxyproline_excretion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Степень выраженности ДСТ (в баллах)</label>
+                <input asp-for="Analyzes.severity_of_dst" class="form-control" min="0" max="90" type="number" />
+                <span asp-validation-for="Analyzes.severity_of_dst" class="text-danger"></span>
+            </div>
+            <p>
+            <div class="form-group">
+                <input type="submit" value="Добавить" class="btn btn-primary" />
+            </div>
+            </p>
+        </form>
+    </div>
+</div>
+
+<div>
+    @if (Model.varR == 0)
+    {
+        <a asp-page="./Analyzes">Назад</a>
+    }
+    else
+    {
+        <a href="/Database/Patient_Analyzes?id=@Model.idP">Назад</a>
+    }
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+
+        const options = {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+        }
+
+        const date = new Date()
+        const tomorrow = date.toLocaleString("ru", options).split('.').reverse().join('-')
+        document.getElementById("day").setAttribute("max", tomorrow)
+    </script>
+}

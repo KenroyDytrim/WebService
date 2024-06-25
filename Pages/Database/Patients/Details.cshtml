@@ -1,0 +1,59 @@
+﻿@page
+@model Web2.Pages.Database.Patients.DetailsModel
+
+@{
+    Layout = null;
+}
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<body>
+
+<h1>Подробности</h1>
+
+<div>
+    <h4>Пациент</h4>
+    <hr />
+    <dl class="row">
+            <dt class="col-sm-5">
+                Группа
+            </dt>
+            <dd class="col-sm-5">
+                @Html.DisplayFor(model => model.patient_group.title)
+            </dd>
+            <dt class="col-sm-5">
+                Фамилия
+            </dt>
+            <dd class="col-sm-5">
+                @Html.DisplayFor(model => model.patient_archive.surname)
+            </dd>
+            <dt class="col-sm-5">
+                Имя
+            </dt>
+            <dd class="col-sm-5">
+                @Html.DisplayFor(model => model.patient_archive.name)
+            </dd>
+            <dt class="col-sm-5">
+                Отчество
+            </dt>
+            <dd class="col-sm-5">
+                @Html.DisplayFor(model => model.patient_archive.patronymic)
+            </dd>
+            <dt class="col-sm-5">
+                Дата рождения
+            </dt>
+            <dd class="col-sm-5">
+                @Html.DisplayFor(model => model.patient_archive.birthday)
+            </dd>
+            <dt class="col-sm-5">
+                Номер телефона
+            </dt>
+            <dd class="col-sm-5">
+                @Html.DisplayFor(model => model.patient_archive.phone_num)
+            </dd>
+    </dl>
+</div>
+
+</body>

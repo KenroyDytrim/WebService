@@ -1,0 +1,177 @@
+﻿@page
+@model Web2.Pages.Database.Patients.DatabaseModel
+
+@{
+    ViewData["Title"] = "Patients";
+}
+
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/modal.css" asp-append-version="true" />
+    <script src="~/scripts/modal.js" asp-append-version="true" ></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+
+</head>
+
+<body>
+<h2>Пациенты</h2>
+
+<p>
+    <a asp-page="Create">Добавить</a>
+</p>
+
+<form method="post">
+<p>
+    <div class="row">
+            <div class="col-md-3">
+    <label class="form-label">Группа</label>
+    <select class="form-select" name="G1" asp-items="Model.GetGroup()">
+        <option value=""></option>
+    </select>
+            </div>
+        </div>
+</p>
+
+<div class="form-group">
+    <input type="submit" style="margin: 5px 20px 5px 20px;" value="Выбрать" class="btn btn-primary" />
+</div>
+</form>
+
+<div data-aos="fade-up-left" class="table-responsive">
+
+<table id="tblCustomers" class="table table-hover" >
+    <thead>
+        <tr class="table-secondary">
+            <th class="noExl">Переход</th class="noExl">
+            <th role="columnheader">
+                Фамилия
+            </th>
+            <th role="columnheader">
+                Имя
+            </th>
+            <th role="columnheader">
+                Отчество
+            </th>
+            <th role="columnheader">
+                Дата рождения
+            </th>
+            <th role="columnheader">
+                Номер телефона
+            </th>
+            <th class="noExl">Инструменты</th class="noExl">
+            <th class="noExl">Данные</th class="noExl">
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.patient_archive) {
+        <tr>
+            <td class="noExl">
+                <button class="fas fa-laptop-medical bt-ur" title="Переход" onclick="document.location='/Processing/DataPatient?id=@item.id_patient'"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.patronymic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.birthday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phone_num)
+            </td>
+            <td class="noExl">
+                <button class="fas fa-edit bt-ur" onclick="openModal({ url: '/Database/Patients/Edit', data: '@item.id_patient' })"
+                            datd-toggle="ajax-modal" data-target="Modal" title="Редактировать"/>
+                 
+                <button class="fas fa-search bt-ur" onclick="openModal({ url: '/Database/Patients/Details', data: '@item.id_patient' })"
+                            datd-toggle="ajax-modal" data-target="Modal" title="Подробности"/>
+                 
+                <button class="fas fa-trash bt-ur" id="@item.id_patient" id2="show-modal" title="Удалить"/>
+            </td class="noExl">
+            <td class="noExl">
+                <button class="fas fa-vials bt-ur" title="Анализы" onclick="document.location='/Database/Patient_Analyzes?id=@item.id_patient'"/>
+                <button class="fas fa-diagnoses bt-ur" title="Диспансеризация" onclick="document.location='/Database/Patient_Examinations?id=@item.id_patient'"/>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+
+
+ @section scripts{
+
+<script>
+    var id;
+    const modal=new ItcModal({
+        title: 'Удаление',
+        content: '<h4>Вы уверены, что хотите удалить это?</h4>',
+        footerButtons: [
+            {class: 'btn btn-primary', text: 'ОК', action: 'ok'},
+            {class: 'btn btn-danger', text: 'Отмена', action: 'cancel'}
+        ]
+    });
+    document.addEventListener('click', (e) => {
+    if (e.target.closest('[id2="show-modal"]')) {
+      id = e.target.id;
+      modal.show();
+    }
+     if (e.target.closest('[data-action="ok"]')) {
+
+         $.ajax({
+             type: 'POST',
+             headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+             url: '?handler=Delete',
+             data:{ id: id},
+             success: function () {
+            window.location.href = "/Database/Patients/Database"; // reload page
+        },
+        error: function (response) {
+            alert(response);
+        }
+         })
+
+      modal.hide();
+    }
+    if (e.target.closest('[data-action="cancel"]')) {
+      modal.hide();
+    }
+  });
+</script>
+
+     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+	 <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+     <script src="https://cdn.datatables.net/plug-ins/1.13.7/sorting/date-eu.js"></script>
+     <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+
+
+     <script type="text/javascript">
+         $(document).ready(function() {
+             $('#tblCustomers').DataTable( {
+                 dom: 'Bfrtip',
+                 buttons: [
+                     'copy', 'excel', 'pdf', 'print'
+                 ],
+                  language: { url: "https://cdn.datatables.net/plug-ins/1.13.4/i18n/ru.json", },
+                  columnDefs: [{ type: 'date-eu', targets: [4] }]
+             });
+             $('.dataTables_length').addClass('bs-select');
+         } );
+     </script>
+
+ }
+
+</body>

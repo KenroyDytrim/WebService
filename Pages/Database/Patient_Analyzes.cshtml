@@ -1,0 +1,170 @@
+﻿@page
+@model Web2.Pages.Database.Patient_AnalyzesModel
+@{
+	ViewData["Title"] = "Анализы";
+}
+
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/modal.css" asp-append-version="true" />
+    <script src="~/scripts/modal.js" asp-append-version="true" ></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+
+</head>
+
+<body>
+
+<p>
+    <a href="/Database/Analyzes/Create?id=@Model.id_p&var=1">Добавить</a>
+</p>
+
+    <form method="post"></form>
+
+	<div data-aos="fade-up-left" class="table-responsive">
+
+<table id="tblCustomers" class="table table-hover">
+    <thead>
+        <tr class="table-secondary">
+            <th role="columnheader">
+                Дата забора
+            </th>
+            <th role="columnheader">
+                Кальций сыворотки крови (ммоль/л)
+            </th>
+            <th role="columnheader">
+                Фосфор сыворотки крови (ммоль/л)
+            </th>
+            <th role="columnheader">
+                Оксипролин сыворотки крови (ммоль/л)
+            </th>
+            <th role="columnheader">
+                Экскреция кальция (мМ/сутки)
+            </th>
+            <th role="columnheader">
+                Экскреция фосфора (ммоль/л)
+            </th>
+            <th role="columnheader">
+                Экскреция оксипролина (мкм/мг креатинина)
+            </th>
+            <th role="columnheader">
+                Степень выраженности ДСТ по Т.Милковской-Димитровой (в баллах)
+            </th>
+            <th class="noExl">Инструменты</th class="noExl">
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.analyzes) {
+        <tr>
+              <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.serum_calcium)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.serum_phosphorus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.serum_oxyproline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.calcium_excretion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phosphorus_excretion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.oxyproline_excretion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.severity_of_dst)
+            </td>
+            <td class="noExl">
+                <button class="fas fa-edit bt-ur" onclick="openModal({ url: '/Database/Analyzes/Edit', data: '@item.id_analysis' })"
+                            datd-toggle="ajax-modal" data-target="Modal" title="Редактировать"/>
+                 
+                <button class="fas fa-search bt-ur" onclick="openModal({ url: '/Database/Analyzes/Details', data: '@item.id_analysis' })"
+                            datd-toggle="ajax-modal" data-target="Modal" title="Подробности"/>
+                 
+                <button class="fas fa-trash bt-ur" id="@item.id_analysis" id2="show-modal" title="Удалить"/>
+            </td class="noExl">
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+
+@section scripts{
+
+<script>
+    var id;
+    const modal=new ItcModal({
+        title: 'Удаление',
+        content: '<h4>Вы уверены, что хотите удалить это?</h4>',
+        footerButtons: [
+            {class: 'btn btn-primary', text: 'ОК', action: 'ok'},
+            {class: 'btn btn-danger', text: 'Отмена', action: 'cancel'}
+        ]
+    });
+    document.addEventListener('click', (e) => {
+    if (e.target.closest('[id2="show-modal"]')) {
+      id = e.target.id;
+      modal.show();
+    }
+     if (e.target.closest('[data-action="ok"]')) {
+
+         $.ajax({
+             type: 'POST',
+             headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+             url: '?handler=Delete',
+             data:{ id: id},
+             success: function () {
+            window.location.href = "/Database/Patient_Analyzes"; // reload page
+        },
+        error: function (response) {
+            alert(response);
+        }
+         })
+
+      modal.hide();
+    }
+    if (e.target.closest('[data-action="cancel"]')) {
+      modal.hide();
+    }
+  });
+</script>
+
+     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+	 <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+     <script src="~/scripts/table2excel.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#btnExport").click(function () {
+                $("#tblCustomers").table2excel({
+                    filename: "Table.xls"
+                });
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready( function () {
+            $('#tblCustomers').DataTable({
+                language: {
+                url: "https://cdn.datatables.net/plug-ins/1.13.4/i18n/ru.json",
+            },
+            });
+            $('.dataTables_length').addClass('bs-select');
+            
+        } );
+    </script>
+
+ }
+
+</body>
