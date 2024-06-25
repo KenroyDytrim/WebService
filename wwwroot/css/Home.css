@@ -1,0 +1,131 @@
+﻿.navega_sunka {
+    position: fixed;
+    width: 254px;
+    left: -254px;
+    height: 100%;
+    z-index: 3;
+    background: #1e1e1e;
+    transition: all .5s ease;
+}
+
+    .navega_sunka header {
+        font-size: 28px;
+        color: white;
+        line-height: 70px;
+        text-align: center;
+        background: #1b1b1b;
+        user-select: none;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .navega_sunka a {
+        display: block;
+        height: 65px;
+        width: 100%;
+        color: white;
+        line-height: 65px;
+        padding-left: 30px;
+        box-sizing: border-box;
+        border-bottom: 1px solid black;
+        border-top: 1px solid rgba(255,255,255,.1);
+        border-left: 5px solid transparent;
+        font-family: 'Open Sans', sans-serif;
+        transition: all .5s ease;
+    }
+
+a.gesopamda{
+    border-left: 5px solid #b93632;
+    color: #0077cc;
+}
+
+.navega_sunka a i {
+    font-size: 23px;
+    margin-right: 16px;
+}
+
+.navega_sunka a span {
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+#check {
+    display: none;
+}
+
+label #amdaven, label #lodesan {
+    position: fixed;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    border: 1px solid #262626;
+    margin: 15px 30px;
+    font-size: 29px;
+    background: #262626;
+    height: 45px;
+    width: 45px;
+    text-align: center;
+    line-height: 45px;
+    transition: all .5s ease;
+}
+
+label #lodesan {
+    opacity: 0;
+    visibility: hidden;
+}
+
+#check:checked ~ .navega_sunka {
+    left: 0;
+}
+
+#check:checked ~ label #amdaven {
+    margin-left: 255px;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 3;
+}
+
+#check:checked ~ label #lodesan {
+    margin-left: 255px;
+    opacity: 1;
+    visibility: visible;
+    z-index: 3;
+}
+
+@media(max-width : 860px) {
+    .navega_sunka {
+        height: auto;
+        width: 70px;
+        left: 0;
+        margin: 100px 0;
+    }
+
+    header, #amdaven, #lodesan {
+        display: none;
+    }
+
+    .sp {
+        position: fixed;
+        margin-left: 25px;
+        opacity: 0;
+        visibility: hidden;
+        font-size: 85%;
+    }
+
+    .navega_sunka a {
+        height: 60px;
+    }
+
+        .navega_sunka a i {
+            margin-left: -10px;
+        }
+
+    a:hover {
+        width: 200px;
+        background: inherit;
+    }
+
+    .navega_sunka a:hover span {
+        opacity: 1;
+        visibility: visible;
+    }
+}
