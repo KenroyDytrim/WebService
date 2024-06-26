@@ -26,99 +26,101 @@
 
 <body style="font-size: 16px;">
 
-    <h1>Прогноз патологий 🐍</h1>
+    <h1>Диагностика патологий</h1>
+
+    <hr />
 
     <br>
 
     <div style="display:flex; justify-content: space-between;">
 
-    <div style="margin: 0px 50px 0px 0px;">
-    <h2>Данные пациента</h2>
+    <div style="margin: 0px 60px 0px 0px; font-size: 1.4vw; width: 45vw;">
+    <h2 style="font-size: 2vw;">Данные пациента</h2>
 
-        <p style="width: 50vw; display:flex; justify-content: space-between;">
+        <p style="width: 45vw; display:flex; justify-content: space-between;">
         <label>Кальций сыворостки крови (ммоль/л)</label>
-                <input id="an1" asp-for="Analyzes.serum_calcium" class="inputAn" min="0" max="30" step="0.1" type="number" style="width: 15vw;" />
+                <input id="an1" asp-for="Analyzes.serum_calcium" class="inputAn" min="0" max="30" step="0.1" type="number" style="width: 15vw; height: 2vw;" />
     </p>
-        <p style="width: 50vw; display:flex; justify-content: space-between;">
+        <p style="width: 45vw; display:flex; justify-content: space-between;">
         <label>Фосфор сыворотки крови (ммоль/л)</label>
-                <input id="an2" asp-for="Analyzes.serum_phosphorus" class="inputAn" min="0" max="30" step="0.1" type="number" style="width: 15vw;" />
+                <input id="an2" asp-for="Analyzes.serum_phosphorus" class="inputAn" min="0" max="30" step="0.1" type="number" style="width: 15vw; height: 2vw;" />
     </p>
-        <p style="width: 50vw; display:flex; justify-content: space-between;">
+        <p style="width: 45vw; display:flex; justify-content: space-between;">
         <label>Оксипролин сыворотки крови (мкмоль/л)</label>
-                <input id="an3" asp-for="Analyzes.serum_oxyproline" class="inputAn" min="0" max="30" step="0.1" type="number" style="width: 15vw;" />
+                <input id="an3" asp-for="Analyzes.serum_oxyproline" class="inputAn" min="0" max="30" step="0.1" type="number" style="width: 15vw; height: 2vw;" />
     </p>
-        <p style="width: 50vw; display:flex; justify-content: space-between;">
+        <p style="width: 45vw; display:flex; justify-content: space-between;">
         <label>Эксреция кальция (мМ/сутки)</label>
-                <input id="an4" asp-for="Analyzes.calcium_excretion" class="inputAn" min="0" max="30" step="0.1" type="number" style="width: 15vw;" />
+                <input id="an4" asp-for="Analyzes.calcium_excretion" class="inputAn" min="0" max="30" step="0.1" type="number" style="width: 15vw; height: 2vw;" />
     </p>
-        <p style="width: 50vw; display:flex; justify-content: space-between;">
+        <p style="width: 45vw; display:flex; justify-content: space-between;">
         <label>Экскреция фосфора (ммоль/л)</label>
-                <input id="an5" asp-for="Analyzes.phosphorus_excretion" class="inputAn" min="0" max="30" step="0.1" type="number" style="width: 15vw;" />
+                <input id="an5" asp-for="Analyzes.phosphorus_excretion" class="inputAn" min="0" max="30" step="0.1" type="number" style="width: 15vw; height: 2vw;" />
     </p>
-        <p style="width: 50vw; display:flex; justify-content: space-between;">
+        <p style="width: 45vw; display:flex; justify-content: space-between;">
         <label>Экскреция оксипролина (мкм/мг креатина)</label>
-                <input id="an6" asp-for="Analyzes.oxyproline_excretion" class="inputAn" min="0" max="30" step="0.1" type="number" style="width: 15vw;" />
+                <input id="an6" asp-for="Analyzes.oxyproline_excretion" class="inputAn" min="0" max="30" step="0.1" type="number" style="width: 15vw; height: 2vw;" />
     </p>
-        <p style="width: 50vw; display:flex; justify-content: space-between;">
+        <p style="width: 45vw; display:flex; justify-content: space-between;">
         <label>Степень выраженности ДСТ (в баллах)</label>
-                <input id="an7" asp-for="Analyzes.severity_of_dst" class="inputAn" min="0" max="90" step="1" type="number" style="width: 15vw;" />
+                <input id="an7" asp-for="Analyzes.severity_of_dst" class="inputAn" min="0" max="90" step="1" type="number" style="width: 15vw; height: 2vw;" />
     </p>
-        <p style="width: 50vw; display:flex; justify-content: space-between;">
+        <p style="width: 45vw; display:flex; justify-content: space-between;">
         <label>Время удержания позы</label>
-                <input id="an8" asp-for="Examination.posture_holding_time" class="inputAn" min="0" max="20" step="0.1" type="number" style="width: 15vw;" />
+                <input id="an8" asp-for="Examination.posture_holding_time" class="inputAn" min="0" max="20" step="0.1" type="number" style="width: 15vw; height: 2vw;" />
     </p>
-        <p style="width: 50vw; display:flex; justify-content: space-between;">
-        <label>Величина кифоза в градусах в грудном отделе позвоночника</label>
-                <input id="an9" asp-for="Examination.the_amount_of_kyphosis_in_degress" class="inputAn" min="0" max="120" step="1" type="number" style="width: 15vw;" />
+        <p style="width: 45vw; display:flex; justify-content: space-between;">
+        <label>Величина кифоза в градусах</label>
+                <input id="an9" asp-for="Examination.the_amount_of_kyphosis_in_degress" class="inputAn" min="0" max="120" step="1" type="number" style="width: 15vw; height: 2vw;" />
     </p>
 
-        <p style="width: 50vw; display:flex; justify-content: space-between;">
+        <p style="width: 45vw; display:flex; justify-content: space-between;">
         <label>Наличие изменений стабилографических показателей</label>
-                <input id="an10" type="checkbox" asp-for="Examination.stabilographic_changes" style="width: 30px; height: 30px;"/>
+                <input id="an10" type="checkbox" asp-for="Examination.stabilographic_changes" style="width: 1.6vw; height: 1.6vw;"/>
     </p>
 
     </div>
 
-    <div>
-        <p style="font-size: 24px;">Выберите патологии для прогноза:</p>
+    <div style="display:flex; flex-direction:column; font-size:1.2vw; width:40vw;">
+        <h2 style="font-size: 2vw;">Выберите патологии для прогноза:</h2>
 
         <p style="display:flex;">
-            <input name="ch1" id="ch1" type="checkbox" value="0" style="width: 25px; height: 25px;" />
+            <input name="ch1" id="ch1" type="checkbox" value="0" style="width: 1.6vw; height: 1.6vw;" />
             <label>Изменение контуров замыкательных пластинок</label>
         </p>
 
-        <p style="display:flex;">
-            <input name="ch2" id="ch2" type="checkbox" value="1" style="width: 25px; height: 25px;" />
+        <p>
+            <input name="ch2" id="ch2" type="checkbox" value="1" style="width: 1.6vw; height: 1.6vw;" />
             <label>Клиновидная форма тел позвонков</label>
         </p>
 
-        <p style="display:flex;">
-            <input name="ch3" id="ch3" type="checkbox" value="2" style="width: 25px; height: 25px;" />
+        <p>
+            <input name="ch3" id="ch3" type="checkbox" value="2" style="width: 1.6vw; height: 1.6vw;" />
             <label>Грыжи Шморля</label>
         </p>
 
-        <p style="display:flex;">
-            <input name="ch4" id="ch4" type="checkbox" value="3" style="width: 25px; height: 25px;" />
+        <p>
+            <input name="ch4" id="ch4" type="checkbox" value="3" style="width: 1.6vw; height: 1.6vw;" />
             <label>Остеопороз тел позвонков</label>
         </p>
 
-        <p style="display:flex;">
-            <input name="ch5" id="ch5" type="checkbox" value="4" style="width: 25px; height: 25px;" />
+        <p>
+            <input name="ch5" id="ch5" type="checkbox" value="4" style="width: 1.6vw; height: 1.6vw;" />
             <label>Уменьшение высоты межпозвонкового диска</label>
         </p>
 
-        <p style="display:flex;">
-            <input name="ch6" id="ch6" type="checkbox" value="5" style="width: 25px; height: 25px;" />
+        <p>
+            <input name="ch6" id="ch6" type="checkbox" value="5" style="width: 1.6vw; height: 1.6vw;" />
             <label>Изменение контуров апофизов</label>
         </p>
 
-        <p style="display:flex;">
-            <input name="ch7" id="ch7" type="checkbox" value="6" style="width: 25px; height: 25px;" />
+        <p>
+            <input name="ch7" id="ch7" type="checkbox" value="6" style="width: 1.6vw; height: 1.6vw;" />
             <label>Признаки остеохондроза</label>
         </p>
 
-        <p style="display:flex;">
-            <input name="ch8" id="ch8" type="checkbox" value="7" style="width: 25px; height: 25px;" />
+        <p>
+            <input name="ch8" id="ch8" type="checkbox" value="7" style="width: 1.6vw; height: 1.6vw;" />
             <label>ЭНМГ (болезни двигательных нейронов)</label>
         </p>
 
