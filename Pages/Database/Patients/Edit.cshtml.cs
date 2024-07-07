@@ -9,13 +9,13 @@ namespace Web2.Pages.Database.Patients
     public class EditModel : PageModel
     {
         private readonly Web2.Data.AppDbContext _context;
-        // выбор группы
+        // РІС‹Р±РѕСЂ РіСЂСѓРїРїС‹
         public List<SelectListItem>? GetGroup()
         {
             List<SelectListItem> group = new List<SelectListItem>();
-            group.Add(new SelectListItem() { Text = "Контрольная группа", Value = "1" });
-            group.Add(new SelectListItem() { Text = "Основная группа", Value = "2" });
-            group.Add(new SelectListItem() { Text = "Группа сравнения", Value = "3" });
+            group.Add(new SelectListItem() { Text = "РљРѕРЅС‚СЂРѕР»СЊРЅР°СЏ РіСЂСѓРїРїР°", Value = "1" });
+            group.Add(new SelectListItem() { Text = "РћСЃРЅРѕРІРЅР°СЏ РіСЂСѓРїРїР°", Value = "2" });
+            group.Add(new SelectListItem() { Text = "Р“СЂСѓРїРїР° СЃСЂР°РІРЅРµРЅРёСЏ", Value = "3" });
             return group;
         }
         public EditModel(Web2.Data.AppDbContext context)
@@ -29,7 +29,7 @@ namespace Web2.Pages.Database.Patients
 		public Archive_Group Archive { get; set; }
         [BindProperty]
         public patient_group patient_groups { get; set; }
-        // получение данных пациента
+        // РїРѕР»СѓС‡РµРЅРёРµ РґР°РЅРЅС‹С… РїР°С†РёРµРЅС‚Р°
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -46,7 +46,7 @@ namespace Web2.Pages.Database.Patients
             }
             return Page();
         }
-        // изменение данных пациента
+        // РёР·РјРµРЅРµРЅРёРµ РґР°РЅРЅС‹С… РїР°С†РёРµРЅС‚Р°
         public async Task<IActionResult> OnPostEditAsync()
         {
             if (!ModelState.IsValid)
