@@ -9,40 +9,40 @@ namespace Web2.Pages.Admin
 {
     public class EditModel : PageModel
     {
-		private readonly Web2.Data.AppDbContext _context;
-		UserManager<User> _userManager;
-        // выбор роли пользователя
-		public List<SelectListItem>? GetRole()
-		{
-			List<SelectListItem> role = new List<SelectListItem>();
-			role.Add(new SelectListItem() { Text = "Доктор", Value = "Doctor" });
-			role.Add(new SelectListItem() { Text = "Админ", Value = "Admin" });
-			return role;
-		}
-		public EditModel(Web2.Data.AppDbContext context, UserManager<User> userManager)
-		{
-			_context = context;
-			_userManager = userManager;
+	private readonly Web2.Data.AppDbContext _context;
+	UserManager<User> _userManager;
+        // РІС‹Р±РѕСЂ СЂРѕР»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+	public List<SelectListItem>? GetRole()
+	{
+	    List<SelectListItem> role = new List<SelectListItem>();
+	    role.Add(new SelectListItem() { Text = "Р”РѕРєС‚РѕСЂ", Value = "Doctor" });
+	    role.Add(new SelectListItem() { Text = "РђРґРјРёРЅ", Value = "Admin" });
+	    return role;
+	}
+	public EditModel(Web2.Data.AppDbContext context, UserManager<User> userManager)
+	{
+	    _context = context;
+	    _userManager = userManager;
         }			
-		[BindProperty]
-		public User user { get; set; }
+	[BindProperty]
+	public User user { get; set; }
         public IList<string> UserRoles { get; set; }
-        // получение данных пользователя
+        // РїРѕР»СѓС‡РµРЅРёРµ РґР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         public async Task<IActionResult> OnGetAsync(string id)
-		{
-			if (id == null)
-			{
-				return NotFound();
-			}
+	{
+	    if (id == null)
+	    {
+		return NotFound();
+	    }
             user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
             UserRoles = await _userManager.GetRolesAsync(user);
-			return Page();
-		}
-        // изменение данных пользователя
+	    return Page();
+	}
+        // РёР·РјРµРЅРµРЅРёРµ РґР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         public async Task<IActionResult> OnPostEditAsync(IList<string> UserRoles)
         {
             var user2 = await _userManager.FindByIdAsync(user.Id);
@@ -85,7 +85,7 @@ namespace Web2.Pages.Admin
             }
             else
             {
-                ModelState.AddModelError("", "Что-то пошло не так");
+                ModelState.AddModelError("", "Р§С‚Рѕ-С‚Рѕ РїРѕС€Р»Рѕ РЅРµ С‚Р°Рє");
             }
             return Page();
         }
