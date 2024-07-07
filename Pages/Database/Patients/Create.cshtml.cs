@@ -9,13 +9,13 @@ namespace Web2.Pages.Database.Patients
     public class CreateModel : PageModel
     {
         private readonly Data.AppDbContext _context;
-        // выбор группы
+        // РІС‹Р±РѕСЂ РіСЂСѓРїРїС‹
         public List<SelectListItem>? GetGroup()
         {
             List<SelectListItem> group = new List<SelectListItem>();
-            group.Add(new SelectListItem() { Text = "Контрольная группа", Value = "1" });
-            group.Add(new SelectListItem() { Text = "Основная группа", Value = "2" });
-            group.Add(new SelectListItem() { Text = "Группа сравнения", Value = "3" });
+            group.Add(new SelectListItem() { Text = "РљРѕРЅС‚СЂРѕР»СЊРЅР°СЏ РіСЂСѓРїРїР°", Value = "1" });
+            group.Add(new SelectListItem() { Text = "РћСЃРЅРѕРІРЅР°СЏ РіСЂСѓРїРїР°", Value = "2" });
+            group.Add(new SelectListItem() { Text = "Р“СЂСѓРїРїР° СЃСЂР°РІРЅРµРЅРёСЏ", Value = "3" });
             return group;
         }
         public CreateModel(Data.AppDbContext context)
@@ -33,7 +33,7 @@ namespace Web2.Pages.Database.Patients
 		[BindProperty]
         public Archive_Group Archive { get; set; }
         public User_Patients UP { get; set; }
-        // добавление нового пациента в БД
+        // РґРѕР±Р°РІР»РµРЅРёРµ РЅРѕРІРѕРіРѕ РїР°С†РёРµРЅС‚Р° РІ Р‘Р”
         public async Task<IActionResult> OnPostAsync()
         {
             UP= new User_Patients();
