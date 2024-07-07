@@ -9,40 +9,40 @@ using System.ComponentModel.DataAnnotations;
 namespace Web2.Pages.Admin
 {
     public class CreateModel : PageModel
-	{
-		UserManager<User> _userManager;
-		// модель для добавления пользователя
+    {
+	UserManager<User> _userManager;
+	// РјРѕРґРµР»СЊ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         public class InputModel
         {
             public string Role { get; set; }
 
-            [Required(ErrorMessage = "Не указан пароль")]
-			[DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
-			[StringLength(100, ErrorMessage = "Длина {0} должна быть не менее {2} и не более {1} символов.", MinimumLength = 8)]
+            [Required(ErrorMessage = "РќРµ СѓРєР°Р·Р°РЅ РїР°СЂРѕР»СЊ")]
+	    [DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+	    [StringLength(100, ErrorMessage = "Р”Р»РёРЅР° {0} РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РЅРµ РјРµРЅРµРµ {2} Рё РЅРµ Р±РѕР»РµРµ {1} СЃРёРјРІРѕР»РѕРІ.", MinimumLength = 8)]
             [Display(Name = "Password")]
             public string Password { get; set; }
-			[Required(ErrorMessage = "Не указан Email")]
-			public string Email { get; set; }
-			[Required(ErrorMessage = "Не указан логин")]
-			public string Login { get; set; }
-			[Required(ErrorMessage = "Не указана фамилия")]
-			public string Surname { get; set; }
-			[Required(ErrorMessage = "Не указано имя")]
-			public string Name { get; set; }
-			[Required(ErrorMessage = "Не указан номер телефона")]
-			[Phone]
-			public string Phone { get; set; }
+	    [Required(ErrorMessage = "РќРµ СѓРєР°Р·Р°РЅ Email")]
+	    public string Email { get; set; }
+	    [Required(ErrorMessage = "РќРµ СѓРєР°Р·Р°РЅ Р»РѕРіРёРЅ")]
+	    public string Login { get; set; }
+	    [Required(ErrorMessage = "РќРµ СѓРєР°Р·Р°РЅР° С„Р°РјРёР»РёСЏ")]
+	    public string Surname { get; set; }
+	    [Required(ErrorMessage = "РќРµ СѓРєР°Р·Р°РЅРѕ РёРјСЏ")]
+	    public string Name { get; set; }
+	    [Required(ErrorMessage = "РќРµ СѓРєР°Р·Р°РЅ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°")]
+	    [Phone]
+	    public string Phone { get; set; }
 
-		}
+	}
 
         [BindProperty]
         public InputModel Input { get; set; }
-		// выбор роли пользователя
+	// РІС‹Р±РѕСЂ СЂРѕР»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         public List<SelectListItem>? GetRole()
         {
             List<SelectListItem> role = new List<SelectListItem>();
-            role.Add(new SelectListItem() { Text = "Доктор", Value = "Doctor" });
-            role.Add(new SelectListItem() { Text = "Админ", Value = "Admin" });
+            role.Add(new SelectListItem() { Text = "Р”РѕРєС‚РѕСЂ", Value = "Doctor" });
+            role.Add(new SelectListItem() { Text = "РђРґРјРёРЅ", Value = "Admin" });
             return role;
         }
         public CreateModel(Web2.Data.AppDbContext context, UserManager<User> userManager)
@@ -55,7 +55,7 @@ namespace Web2.Pages.Admin
 		{
 			return Page();
 		}
-		// добавление пользователя и отправка сообщения для подтверждения регистрации
+		// РґРѕР±Р°РІР»РµРЅРёРµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Рё РѕС‚РїСЂР°РІРєР° СЃРѕРѕР±С‰РµРЅРёСЏ РґР»СЏ РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ СЂРµРіРёСЃС‚СЂР°С†РёРё
 		public async Task<IActionResult> OnPostAsync()
 		{
 			if (await _userManager.FindByEmailAsync(Input.Email) == null)
@@ -69,21 +69,21 @@ namespace Web2.Pages.Admin
 				user.Email = Input.Email;
 
 				await _userManager.CreateAsync(user, Input.Password);
-                var result = await _userManager.AddToRoleAsync(user, Input.Role);
+                                var result = await _userManager.AddToRoleAsync(user, Input.Role);
 
-                if (result.Succeeded)
+                                if (result.Succeeded)
 				{
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.Page(
-                        "/Users/ConfirmEmail",
-						null,
-                        new { userId = user.Id, code = code },
-                        protocol: HttpContext.Request.Scheme);
-                    EmailService emailService = new EmailService();
-                    await emailService.SendEmailAsync(user.Email, "Confirm your account",
-                        $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
+                                	var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    			var callbackUrl = Url.Page(
+                                            "/Users/ConfirmEmail",
+					    null,
+                                            new { userId = user.Id, code = code },
+                                            protocol: HttpContext.Request.Scheme);
+                                        EmailService emailService = new EmailService();
+                                        await emailService.SendEmailAsync(user.Email, "Confirm your account",
+                                            $"РџРѕРґС‚РІРµСЂРґРёС‚Рµ СЂРµРіРёСЃС‚СЂР°С†РёСЋ, РїРµСЂРµР№РґСЏ РїРѕ СЃСЃС‹Р»РєРµ: <a href='{callbackUrl}'>link</a>");
 
-                    return Redirect("/Admin/AdminPanel");
+                                        return Redirect("/Admin/AdminPanel");
 				}
 			}
 			return Page();
