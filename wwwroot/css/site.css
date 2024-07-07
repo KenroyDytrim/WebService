@@ -26,9 +26,10 @@ html {
     --col: black;
     --pos: 500px;
     --backC: #6d6875;
-    --backI: linear-gradient(135deg, rgba(109,104,117, 0.2) 0%, rgba(255,180,162, 0.1) 25%, rgba(109,104,117, 0.2) 50%, rgba(255,180,162, 0.1) 75%, rgba(109,104,117, 0.2) 100%), linear-gradient(white, #e9f7ff);
+    --backI: linear-gradient(135deg, rgba(109,104,117, 0.2) 0%, rgba(255,180,162, 0.1) 25%, rgba(109,104,117, 0.2) 50%, rgba(255,180,162, 0.1) 75%, rgba(109,104,117, 0.2) 100%), linear-gradient(white, white);
     --backS: 6px 6px, 100%;
     --header: #2075d0;
+    --backSe: linear-gradient(to right, #adcce9, white);
 }
 
 body {
@@ -150,15 +151,17 @@ hr {
     --backI: linear-gradient(135deg, rgba(0,0,0, 0.2) 0%, rgba(0,0,0, 0.1) 25%, rgba(0,0,0, 0.2) 50%, rgba(0,0,0, 0.1) 75%, rgba(0,0,0, 0.2) 100%), linear-gradient(90deg, #192129, #303641, #484e57);
     --backS: 6px 6px, 100%;
     --header: #6d6875;
+    --backSe: linear-gradient(to right, #535658, white);
 }
 
 .theme-light {
     --col: black;
     --light: rgba(255, 255, 255, .90);
     --backC: #6d6875;
-    --backI: linear-gradient(135deg, rgba(109,104,117, 0.2) 0%, rgba(255,180,162, 0.1) 25%, rgba(109,104,117, 0.2) 50%, rgba(255,180,162, 0.1) 75%, rgba(109,104,117, 0.2) 100%), linear-gradient(white, #e9f7ff);
+    --backI: linear-gradient(135deg, rgba(109,104,117, 0.2) 0%, rgba(255,180,162, 0.1) 25%, rgba(109,104,117, 0.2) 50%, rgba(255,180,162, 0.1) 75%, rgba(109,104,117, 0.2) 100%), linear-gradient(white, white);
     --backS: 6px 6px, 100%;
     --header: #2075d0;
+    --backSe: linear-gradient(to right, #adcce9, white);
 }
 
 .table {
@@ -481,7 +484,7 @@ input[type="checkbox"][checked="checked"]:disabled {
 
 .inputAn {
     padding: 0.375rem 0.75rem;
-    font-size: 1rem;
+    font-size: 1.5vw;
     font-weight: 400;
     color: #212529;
     background-color: #fff;
