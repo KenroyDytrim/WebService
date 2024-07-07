@@ -1,0 +1,57 @@
+﻿@page
+@model Web2.Pages.InstructionsModel
+@{
+	ViewData["Title"] = "Руководоство";
+}
+
+<head>
+
+</head>
+
+<body>
+
+    <div data-aos="fade-up-left" style="padding: 24px 0; width: auto;" id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-bs-target="#carouselExampleControls" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#carouselExampleControls" data-bs-slide-to="1"></li>
+            <li data-bs-target="#carouselExampleControls" data-bs-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner car">
+            <div style="height: 500px;" class="carousel-item active">
+                <div class="numbertext">1 / 3</div>
+                <img style="height: 100%!important;" class="d-block w-100" src=~/image/Im_4.jpg alt="Первый слайд" asp-append-version="true">
+            </div>
+            <div style="height: 500px;" class="carousel-item">
+                <div class="numbertext">2 / 3</div>
+                <img style="height: 100%!important;" class="d-block w-100" src=~/image/Im_5.jpg alt="Второй слайд" asp-append-version="true">
+            </div>
+            <div style ="height: 500px;" class="carousel-item">
+                <div class="numbertext">3 / 3</div>
+                <img style="height: 100%!important;" class="d-block w-100" src=~/image/Im_6.jpg alt="Третий слайд" asp-append-version="true">
+            </div>
+        </div>
+        <!-- Элементы управления -->
+        <a class="prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </a>
+        <a class="nextCr" href="#carouselExampleControls" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </a>
+    </div>
+
+     @section scripts{
+
+    <script>
+        $(function () {
+            $('#carouselExampleControls').carousel({
+                interval: 10000,
+                keyboard: false,
+                pause: 'hover',
+                ride: 'carousel',
+                wrap: true
+            });
+        });
+
+    </script>
+     }
+</body>

@@ -1,9 +1,12 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Web2.Pages
 {
-    public class Index1Model : PageModel
+    public class IndexModel : PageModel
     {
-        public void OnGet(){}
+        public void OnGet()
+        {
+        }
     }
 }
