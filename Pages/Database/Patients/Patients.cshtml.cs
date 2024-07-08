@@ -48,17 +48,17 @@ namespace Web2.Pages.Database.Patients
                 switch (role)
                 {
                     case "Admin":
-						if (group == 0 || group == null)
-							patient_archive = await _context.patient_archive.FromSqlRaw($"SELECT * FROM patient_archive ORDER BY id_patient").ToListAsync();
-						else
-							patient_archive = await _context.patient_archive.FromSqlRaw($"SELECT * FROM patient_archive WHERE id_patient IN(SELECT id_patient FROM archive_group WHERE id_group={group}) ORDER BY id_patient").ToListAsync();
-						break;
+			if (group == 0 || group == null)
+			    patient_archive = await _context.patient_archive.FromSqlRaw($"SELECT * FROM patient_archive ORDER BY id_patient").ToListAsync();
+			else
+			    patient_archive = await _context.patient_archive.FromSqlRaw($"SELECT * FROM patient_archive WHERE id_patient IN(SELECT id_patient FROM archive_group WHERE id_group={group}) ORDER BY id_patient").ToListAsync();
+			break;
                     case "Doctor":
-						if (group == 0 || group == null)
-							patient_archive = await _context.patient_archive.FromSqlRaw($"SELECT * FROM patient_archive WHERE id_patient IN(SELECT id_patient FROM user_patients WHERE id_user=\'{id}\') ORDER BY id_patient").ToListAsync();
-						else
-							patient_archive = await _context.patient_archive.FromSqlRaw($"SELECT * FROM patient_archive WHERE id_patient IN( (SELECT id_patient FROM user_patients WHERE id_user=\'{id}\') INTERSECT (SELECT id_patient FROM archive_group WHERE id_group={group})) ORDER BY id_patient").ToListAsync();
-						break;
+			if (group == 0 || group == null)
+			    patient_archive = await _context.patient_archive.FromSqlRaw($"SELECT * FROM patient_archive WHERE id_patient IN(SELECT id_patient FROM user_patients WHERE id_user=\'{id}\') ORDER BY id_patient").ToListAsync();
+			else
+			    patient_archive = await _context.patient_archive.FromSqlRaw($"SELECT * FROM patient_archive WHERE id_patient IN( (SELECT id_patient FROM user_patients WHERE id_user=\'{id}\') INTERSECT (SELECT id_patient FROM archive_group WHERE id_group={group})) ORDER BY id_patient").ToListAsync();
+			break;
                 }
             }
         }
@@ -99,7 +99,7 @@ namespace Web2.Pages.Database.Patients
 				await _context.SaveChangesAsync();
 
             }
-            string? url = Url.Page("Database", new { group = 0 });
+            string? url = Url.Page("Patients", new { group = 0 });
             return Redirect(url);
         }
     }
