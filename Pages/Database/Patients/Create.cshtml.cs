@@ -41,17 +41,37 @@ namespace Web2.Pages.Database.Patients
             var userP = await _context.user.FromSqlRaw($"SELECT * FROM \"AspNetUsers\" WHERE \"UserName\" = \'{email}\' ").ToListAsync();
             string id = userP[0].Id.ToString();
 
-            Archive.id_patient= Patient.id_patient;
+     	    string mainQuery = "SELECT nextval(pg_get_serial_sequence('patient_archive', 'id_patient'))";
+            string connstring = "Server=dpg-cpt8odaju9rs73aneigg-a.singapore-postgres.render.com;Port=5432;UID=postgresuser;Password=w1hhkuGNJkWOqEZrM8q97nKxCaxXErLL;Database=webservice_gvwn;";
 
-            UP.id_patient = Patient.id_patient;
+            NpgsqlConnection connection = new NpgsqlConnection(connstring);
+            connection.Open();
+            NpgsqlCommand mainCommand = new NpgsqlCommand(mainQuery, connection);
+            NpgsqlDataReader newId = mainCommand.ExecuteReader();
+
+            int idP = 0;
+
+            while (newId.Read())
+            {
+                idP = (int)Convert.ToInt64(newId.GetValue(0));
+            }
+
+            connection.Close();
+
+            Archive.id_patient= idP;
+
+            UP.id_patient = idP;
             UP.id_user = id;
 
+     	    Patient.id_patient = idP;
+
             _context.patient_archive.Add(Patient);
+            await _context.SaveChangesAsync();
             _context.archive_group.Add(Archive);
             _context.user_patients.Add(UP);
             await _context.SaveChangesAsync();
 
-            string? url = Url.Page("Database", new { group = 0 });
+            string? url = Url.Page("./Patients", new { group = 0 });
             return Redirect(url);
         }
     }
