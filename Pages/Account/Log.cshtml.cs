@@ -94,7 +94,7 @@ namespace Web2.Pages
 		{
             if (User.Identity.IsAuthenticated)
             {
-                string Log = User.Identity.Name.ToString();
+                string Log = User.Identity.Name.ToString().ToLower();
                 if (_context.user != null)
                 {
                     user = await _context.user.FromSqlRaw($"SELECT * FROM \"AspNetUsers\" WHERE \"UserName\"=\'{Log}\'").ToListAsync();
