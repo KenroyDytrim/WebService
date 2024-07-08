@@ -94,7 +94,7 @@ label #lodesan {
 @media(max-width : 860px) {
     .navega_sunka {
         height: auto;
-        width: 70px;
+        width: 5vw;
         left: 0;
         margin: 100px 0;
     }
@@ -112,11 +112,14 @@ label #lodesan {
     }
 
     .navega_sunka a {
-        height: 60px;
+        height: 10vw;
+        line-height: 10vw;
+        padding-left: 13.9px;
     }
 
         .navega_sunka a i {
             margin-left: -10px;
+            font-size: 2vw;
         }
 
     a:hover {
