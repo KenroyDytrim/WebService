@@ -41,20 +41,20 @@ namespace Web2.Pages.Database.Patients
             var userP = await _context.user.FromSqlRaw($"SELECT * FROM \"AspNetUsers\" WHERE \"UserName\" = \'{email}\' ").ToListAsync();
             string id = userP[0].Id.ToString();
 
-     	    string mainQuery = "SELECT nextval(pg_get_serial_sequence('patient_archive', 'id_patient'))";
-            string connstring = "Server=dpg-cpt8odaju9rs73aneigg-a.singapore-postgres.render.com;Port=5432;UID=postgresuser;Password=w1hhkuGNJkWOqEZrM8q97nKxCaxXErLL;Database=webservice_gvwn;";
+     	    //string mainQuery = "SELECT nextval(pg_get_serial_sequence('patient_archive', 'id_patient'))";
+            //string connstring = "Server=dpg-cpt8odaju9rs73aneigg-a.singapore-postgres.render.com;Port=5432;UID=postgresuser;Password=w1hhkuGNJkWOqEZrM8q97nKxCaxXErLL;Database=webservice_gvwn;";
 
-            NpgsqlConnection connection = new NpgsqlConnection(connstring);
-            connection.Open();
-            NpgsqlCommand mainCommand = new NpgsqlCommand(mainQuery, connection);
-            NpgsqlDataReader newId = mainCommand.ExecuteReader();
+            //NpgsqlConnection connection = new NpgsqlConnection(connstring);
+            //connection.Open();
+            //NpgsqlCommand mainCommand = new NpgsqlCommand(mainQuery, connection);
+            //NpgsqlDataReader newId = mainCommand.ExecuteReader();
 
             int idP = 0;
 
-            while (newId.Read())
-            {
-                idP = (int)Convert.ToInt64(newId.GetValue(0));
-            }
+            //while (newId.Read())
+            //{
+                //idP = (int)Convert.ToInt64(newId.GetValue(0));
+            //}
 
             connection.Close();
 
