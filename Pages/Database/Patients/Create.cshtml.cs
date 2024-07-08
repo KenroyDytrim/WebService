@@ -56,7 +56,7 @@ namespace Web2.Pages.Database.Patients
                 //idP = (int)Convert.ToInt64(newId.GetValue(0));
             //}
 
-            connection.Close();
+            //connection.Close();
 
             Archive.id_patient= idP;
 
