@@ -15,14 +15,14 @@ namespace Web2.Pages.Database
 		}
         public IList<Examination> examinations { get; set; } = default!;
         public int id_p;
-        // получение всех результатов диспансеризации определённого пациента
+        // РїРѕР»СѓС‡РµРЅРёРµ РІСЃРµС… СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РґРёСЃРїР°РЅСЃРµСЂРёР·Р°С†РёРё РѕРїСЂРµРґРµР»С‘РЅРЅРѕРіРѕ РїР°С†РёРµРЅС‚Р°
         public async Task<IActionResult> OnGetAsync(int id)
         {
             id_p = id;
             examinations = await _context.examination.FromSqlRaw($"SELECT * FROM examination WHERE id_examination IN(SELECT id_examination FROM patient_examinations WHERE id_patient={id})").ToListAsync();
             return Page();
         }
-        // удаление определённых результатов диспансеризации из БД
+        // СѓРґР°Р»РµРЅРёРµ РѕРїСЂРµРґРµР»С‘РЅРЅС‹С… СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РґРёСЃРїР°РЅСЃРµСЂРёР·Р°С†РёРё РёР· Р‘Р”
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
             var b = await _context.examination.FindAsync(id);

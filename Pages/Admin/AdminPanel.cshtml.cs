@@ -19,12 +19,12 @@ namespace Web2.Pages
 		}
 		[BindProperty]
 		public IList<User> user { get; set; } = default!;
-		// получение данных пользователей
+		// РїРѕР»СѓС‡РµРЅРёРµ РґР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
 		public async Task OnGetAsync()
 		{
 			user = await _context.user.FromSqlRaw($"SELECT * FROM \"AspNetUsers\" ").ToListAsync();
 		}
-		// удаление пользователей из БД
+		// СѓРґР°Р»РµРЅРёРµ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ РёР· Р‘Р”
 		public async Task<IActionResult> OnPostDeleteAsync(string id)
         {
             var b = await _userManager.FindByIdAsync(id);

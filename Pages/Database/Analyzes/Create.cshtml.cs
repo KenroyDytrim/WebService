@@ -18,6 +18,7 @@ namespace Web2.Pages.Database.Analyzes
         public Models.Analyzes Analyzes { get; set; }
         [BindProperty]
         public Patient_Analyzes P_A { get; set; }
+        // вывод формы для добавления анализов
         public IActionResult OnGet(int? id, int? var)
         {
             if (id != null)
@@ -27,6 +28,7 @@ namespace Web2.Pages.Database.Analyzes
             }
             return Page();
         }
+        // добавление новых анализов в БД
         public async Task<IActionResult> OnPostAsync(int idP, int varR)
         {
             if (!ModelState.IsValid)

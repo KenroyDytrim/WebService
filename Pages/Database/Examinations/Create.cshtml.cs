@@ -18,7 +18,7 @@ namespace Web2.Pages.Database.Examinations
         public Examination Examination { get; set; }
         [BindProperty]
         public Patient_Examination P_E { get; set; }
-        // вывод формы для добавления анализов
+        // РІС‹РІРѕРґ С„РѕСЂРјС‹ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РґРёСЃРїР°РЅСЃРµСЂРёР·Р°С†РёРё
         public IActionResult OnGet(int? id, int? var)
         {
             if (id != null)
@@ -28,7 +28,7 @@ namespace Web2.Pages.Database.Examinations
             }
             return Page();
         }
-        // добавление новых анализов в БД
+        // РґРѕР±Р°РІР»РµРЅРёРµ РЅРѕРІС‹С… СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РґРёСЃРїР°РЅСЃРµСЂРёР·Р°С†РёРё РІ Р‘Р”
         public async Task<IActionResult> OnPostAsync(int idP, int varR)
         {
             if (!ModelState.IsValid)

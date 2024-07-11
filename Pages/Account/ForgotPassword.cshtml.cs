@@ -12,7 +12,7 @@ namespace Web2.Pages
         {
             _userManager = userManager;
         }
-        // отправка сообщения о сбросе пароля
+        // РѕС‚РїСЂР°РІРєР° СЃРѕРѕР±С‰РµРЅРёСЏ Рѕ СЃР±СЂРѕСЃРµ РїР°СЂРѕР»СЏ
         public async Task<IActionResult> OnPostForgotPassword(string Email)
         {
             if (ModelState.IsValid)
@@ -20,7 +20,7 @@ namespace Web2.Pages
                 var user = await _userManager.FindByEmailAsync(Email);
                 if (user == null || !await _userManager.IsEmailConfirmedAsync(user))
                 {
-                    ModelState.AddModelError("", "Email не найден");
+                    ModelState.AddModelError("", "Email пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
                     return Page();
                 }
 
@@ -32,7 +32,7 @@ namespace Web2.Pages
                     protocol: HttpContext.Request.Scheme);
                 EmailService emailService = new EmailService();
                 await emailService.SendEmailAsync(Email, "Reset Password",
-                    $"Для сброса пароля пройдите по ссылке: <a href='{callbackUrl}'>link</a>");
+                    $"Р”Р»СЏ СЃР±СЂРѕСЃР° РїР°СЂРѕР»СЏ РїСЂРѕР№РґРёС‚Рµ РїРѕ СЃСЃС‹Р»РєРµ: <a href='{callbackUrl}'>link</a>");
             }
             return RedirectToPage("/Account/ForgotPasswordConfirmation");
         }

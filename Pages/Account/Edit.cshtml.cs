@@ -18,7 +18,7 @@ namespace Web2.Pages
 
 		[BindProperty]
 		public User user { get; set; }
-        // получение данных пользователя
+        // РїРѕР»СѓС‡РµРЅРёРµ РґР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         public async Task<IActionResult> OnGetAsync(string id)
 		{
 			if (id == null)
@@ -32,7 +32,7 @@ namespace Web2.Pages
             }
 			return Page();
 		}
-        // изменение данных пользователя
+        // РёР·РјРµРЅРµРЅРёРµ РґР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         public async Task<IActionResult> OnPostEditAsync(IList<string> UserRoles)
         {
             var user2 = await _userManager.FindByIdAsync(user.Id);
@@ -67,7 +67,7 @@ namespace Web2.Pages
             }
             else
             {
-                ModelState.AddModelError("", "Что-то пошло не так");
+                ModelState.AddModelError("", "Р§С‚Рѕ-С‚Рѕ РїРѕС€Р»Рѕ РЅРµ С‚Р°Рє");
             }
             return Page();
         }

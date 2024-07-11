@@ -12,27 +12,27 @@ namespace Web2.Pages
         public int? G = 0;
 
         public int? B=1;
-        public string NameA = "Кальций сыворотки крови (ммоль/л)";
-        // выбор группы
+        public string NameA = "РљР°Р»СЊС†РёР№ СЃС‹РІРѕСЂРѕС‚РєРё РєСЂРѕРІРё (РјРјРѕР»СЊ/Р»)";
+        // РІС‹Р±РѕСЂ РіСЂСѓРїРїС‹
         public List<SelectListItem>? GetGroup()
         {
             List<SelectListItem> group = new List<SelectListItem>();
-            group.Add(new SelectListItem() { Text = "Контрольная группа", Value = "1" });
-            group.Add(new SelectListItem() { Text = "Основная группа", Value = "2" });
-            group.Add(new SelectListItem() { Text = "Группа сравнения", Value = "3" });
+            group.Add(new SelectListItem() { Text = "РљРѕРЅС‚СЂРѕР»СЊРЅР°СЏ РіСЂСѓРїРїР°", Value = "1" });
+            group.Add(new SelectListItem() { Text = "РћСЃРЅРѕРІРЅР°СЏ РіСЂСѓРїРїР°", Value = "2" });
+            group.Add(new SelectListItem() { Text = "Р“СЂСѓРїРїР° СЃСЂР°РІРЅРµРЅРёСЏ", Value = "3" });
             return group;
         }
-        // выбор показателя
+        // РІС‹Р±РѕСЂ РїРѕРєР°Р·Р°С‚РµР»СЏ
         public List<SelectListItem>? GetAnalysis()
         {
             List<SelectListItem> analysis = new List<SelectListItem>();
-            analysis.Add(new SelectListItem() { Text = "Кальций сыворотки крови (ммоль/л)", Value = "1" });
-            analysis.Add(new SelectListItem() { Text = "Фосфор сыворотки крови (ммоль/л)", Value = "2" });
-            analysis.Add(new SelectListItem() { Text = "Оксипролин сыворотки крови (ммоль/л)", Value = "3" });
-            analysis.Add(new SelectListItem() { Text = "Экскреция кальция (мМ/сутки)", Value = "4" });
-            analysis.Add(new SelectListItem() { Text = "Экскреция фосфора (ммоль/л)", Value = "5" });
-            analysis.Add(new SelectListItem() { Text = "Экскреция оксипролина (мкм/мг креатинина)", Value = "6" });
-            analysis.Add(new SelectListItem() { Text = "Степень выраженности ДСТ по Т.Милковской-Димитровой (в баллах)", Value = "7" });
+            analysis.Add(new SelectListItem() { Text = "РљР°Р»СЊС†РёР№ СЃС‹РІРѕСЂРѕС‚РєРё РєСЂРѕРІРё (РјРјРѕР»СЊ/Р»)", Value = "1" });
+            analysis.Add(new SelectListItem() { Text = "Р¤РѕСЃС„РѕСЂ СЃС‹РІРѕСЂРѕС‚РєРё РєСЂРѕРІРё (РјРјРѕР»СЊ/Р»)", Value = "2" });
+            analysis.Add(new SelectListItem() { Text = "РћРєСЃРёРїСЂРѕР»РёРЅ СЃС‹РІРѕСЂРѕС‚РєРё РєСЂРѕРІРё (РјРјРѕР»СЊ/Р»)", Value = "3" });
+            analysis.Add(new SelectListItem() { Text = "Р­РєСЃРєСЂРµС†РёСЏ РєР°Р»СЊС†РёСЏ (РјРњ/СЃСѓС‚РєРё)", Value = "4" });
+            analysis.Add(new SelectListItem() { Text = "Р­РєСЃРєСЂРµС†РёСЏ С„РѕСЃС„РѕСЂР° (РјРјРѕР»СЊ/Р»)", Value = "5" });
+            analysis.Add(new SelectListItem() { Text = "Р­РєСЃРєСЂРµС†РёСЏ РѕРєСЃРёРїСЂРѕР»РёРЅР° (РјРєРј/РјРі РєСЂРµР°С‚РёРЅРёРЅР°)", Value = "6" });
+            analysis.Add(new SelectListItem() { Text = "РЎС‚РµРїРµРЅСЊ РІС‹СЂР°Р¶РµРЅРЅРѕСЃС‚Рё Р”РЎРў РїРѕ Рў.РњРёР»РєРѕРІСЃРєРѕР№-Р”РёРјРёС‚СЂРѕРІРѕР№ (РІ Р±Р°Р»Р»Р°С…)", Value = "7" });
             return analysis;
         }
         private readonly AppDbContext _context;
@@ -48,7 +48,7 @@ namespace Web2.Pages
 
         public IList<Examination> examination { get; set; } = default!;
         public IList<Analyzes> analyzes { get; set; } = default!;
-        // получение данных для графика : "кол-во патологий"
+        // РїРѕР»СѓС‡РµРЅРёРµ РґР°РЅРЅС‹С… РґР»СЏ РіСЂР°С„РёРєР° : "РєРѕР»-РІРѕ РїР°С‚РѕР»РѕРіРёР№"
         public List<PathologCount> GetData1(int? G1)
         {
             List<PathologCount> pathologies = new List<PathologCount>();
@@ -85,7 +85,7 @@ namespace Web2.Pages
 
             return pathologies;
         }
-        // получение данных для графика: "Распределение показателей"
+        // РїРѕР»СѓС‡РµРЅРёРµ РґР°РЅРЅС‹С… РґР»СЏ РіСЂР°С„РёРєР°: "Р Р°СЃРїСЂРµРґРµР»РµРЅРёРµ РїРѕРєР°Р·Р°С‚РµР»РµР№"
         public List<Distribution> GetData2(int? n, int? G1)
         {
             List<Distribution> distribution = new List<Distribution>();

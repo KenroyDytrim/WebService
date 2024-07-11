@@ -68,7 +68,7 @@ Cal.prototype.showMonth = function (y, m) {
         , lastDayOfLastMonth = m == 0 ? new Date(y - 1, 11, 0).getDate() : new Date(y, m, 0).getDate();
 
 
-    var html = '<table>';
+    var html = '<table style="width: 100%;">';
 
     // Запись выбранного месяца и года
     html += '<thead><tr>';

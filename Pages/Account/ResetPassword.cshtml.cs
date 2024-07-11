@@ -13,7 +13,7 @@ namespace Web2.Pages
         {
             _userManager = userManager;
         }
-        // класс для сброса пароля
+        // РєР»Р°СЃСЃ РґР»СЏ СЃР±СЂРѕСЃР° РїР°СЂРѕР»СЏ
         public class ResetPasswordMod
         {
             [Required]
@@ -21,24 +21,24 @@ namespace Web2.Pages
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "Пароль должен содержать как минимум 6 символов", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "РџР°СЂРѕР»СЊ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєР°Рє РјРёРЅРёРјСѓРј 6 СЃРёРјРІРѕР»РѕРІ", MinimumLength = 6)]
             public string Password { get; set; }
 
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "Пароли не совпадают")]
+            [Compare("Password", ErrorMessage = "РџР°СЂРѕР»Рё РЅРµ СЃРѕРІРїР°РґР°СЋС‚")]
             public string ConfirmPassword { get; set; }
 
             public string Code { get; set; }
         }
         [BindProperty]
         public ResetPasswordMod mod { get; set; }
-        // вызов ошибки при несанкционированном доступе
+        // РІС‹Р·РѕРІ РѕС€РёР±РєРё РїСЂРё РЅРµСЃР°РЅРєС†РёРѕРЅРёСЂРѕРІР°РЅРЅРѕРј РґРѕСЃС‚СѓРїРµ
         public IActionResult OnGet(string code)
         {
             mod = new ResetPasswordMod { Code = code };
             return code == null ? Redirect("./Error") : Page();
         }
-        // сброс пароля
+        // СЃР±СЂРѕСЃ РїР°СЂРѕР»СЏ
         public async Task<IActionResult> OnPostResetPassword(ResetPasswordMod model)
         {
             if (!ModelState.IsValid)

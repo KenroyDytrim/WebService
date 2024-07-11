@@ -13,7 +13,7 @@ namespace Web2.Pages
         {
             _context = context;
         }
-        // модель для получения анализов пациента
+        // РјРѕРґРµР»СЊ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ Р°РЅР°Р»РёР·РѕРІ РїР°С†РёРµРЅС‚Р°
         public class Analyzes2
         {
             public int id_analysis { get; set; }
@@ -38,7 +38,7 @@ namespace Web2.Pages
         public IList<Analyzes> analyzes { get; set; } = default!;
         public List<Analyzes2> analyzes2 = new List<Analyzes2>();
         public IList<Examination> examinations { get; set; } = default!;
-        // получение анализов пациента
+        // РїРѕР»СѓС‡РµРЅРёРµ Р°РЅР°Р»РёР·РѕРІ РїР°С†РёРµРЅС‚Р°
         public async Task<IActionResult> OnGetAsync(int? id)
         {
 

@@ -14,14 +14,14 @@ namespace Web2.Pages.Database
 		}
 		public IList<Models.Analyzes> analyzes { get; set; } = default!;
         public int id_p;
-        // получение всех анализов определённого пациента
+        // РїРѕР»СѓС‡РµРЅРёРµ РІСЃРµС… Р°РЅР°Р»РёР·РѕРІ РѕРїСЂРµРґРµР»РµРЅРЅРѕРіРѕ РїР°С†РёРµРЅС‚Р°
 		public async Task<IActionResult> OnGetAsync(int id)
         {
             id_p = id;
 			analyzes = await _context.analyzes.FromSqlRaw($"SELECT * FROM analyzes WHERE id_analysis IN(SELECT id_analysis FROM patient_analyzes WHERE id_patient={id})").ToListAsync();
 			return Page();
         }
-        // удаление определённых анализов из БД
+        // СѓРґР°Р»РµРЅРёРµ РѕРїСЂРµРґРµР»С‘РЅРЅС‹С… Р°РЅР°Р»РёР·РѕРІ РёР· Р‘Р”
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
             var b = await _context.analyzes.FindAsync(id);

@@ -28742,7 +28742,7 @@ def when(event_type=None, selector=None):
     // src/remote_interpreter.ts
     var logger10 = getLogger("pyscript/pyodide");
     var RemoteInterpreter = class extends Object {
-        constructor(src = "https://cdn.jsdelivr.net/pyodide/v0.22.0/full/pyodide.js") {
+        constructor(src = "https://cdn.jsdelivr.net/pyodide/v0.24.0/full/pyodide.js") {
             super();
             this.src = src;
         }
