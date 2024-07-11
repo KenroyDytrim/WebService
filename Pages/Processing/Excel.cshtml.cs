@@ -16,27 +16,27 @@ namespace Web2.Pages
             _context = context;
             Data = new List<List<string>>();
         }
-        // модели для разных таблиц БД
+        // РјРѕРґРµР»Рё РґР»СЏ СЂР°Р·РЅС‹С… С‚Р°Р±Р»РёС† Р‘Р”
         public patient_archive Patient { get; set; }
         public Analyzes AnalyzesP { get; set; }
         public Examination ExaminationP { get; set; }
         public Archive_Group Archive { get; set; }
         public Patient_Analyzes PA { get; set; }
         public Patient_Examination PE { get; set; }
-        // выбор таблицы БД
+        // РІС‹Р±РѕСЂ С‚Р°Р±Р»РёС†С‹ Р‘Р”
         public List<SelectListItem>? GetName()
         {
             List<SelectListItem> group = new List<SelectListItem>();
-            group.Add(new SelectListItem() { Text = "Архив пациентов", Value = "patient_archive" });
-            group.Add(new SelectListItem() { Text = "Анализы", Value = "analyzes" });
-            group.Add(new SelectListItem() { Text = "Результаты диспансеризации", Value = "examination" });
-            group.Add(new SelectListItem() { Text = "Связь: пациенты-группы", Value = "archive_group" });
-            group.Add(new SelectListItem() { Text = "Связь: пациенты-анализы", Value = "patient_analyzes" });
-            group.Add(new SelectListItem() { Text = "Связь: пациенты-диспансеризация", Value = "patient_examinations" });
+            group.Add(new SelectListItem() { Text = "РђСЂС…РёРІ РїР°С†РёРµРЅС‚РѕРІ", Value = "patient_archive" });
+            group.Add(new SelectListItem() { Text = "РђРЅР°Р»РёР·С‹", Value = "analyzes" });
+            group.Add(new SelectListItem() { Text = "Р РµР·СѓР»СЊС‚Р°С‚С‹ РґРёСЃРїР°РЅСЃРµСЂРёР·Р°С†РёРё", Value = "examination" });
+            group.Add(new SelectListItem() { Text = "РЎРІСЏР·СЊ: РїР°С†РёРµРЅС‚С‹-РіСЂСѓРїРїС‹", Value = "archive_group" });
+            group.Add(new SelectListItem() { Text = "РЎРІСЏР·СЊ: РїР°С†РёРµРЅС‚С‹-Р°РЅР°Р»РёР·С‹", Value = "patient_analyzes" });
+            group.Add(new SelectListItem() { Text = "РЎРІСЏР·СЊ: РїР°С†РёРµРЅС‚С‹-РґРёСЃРїР°РЅСЃРµСЂРёР·Р°С†РёСЏ", Value = "patient_examinations" });
             return group;
         }
         public void OnGet(){}
-        // ввод данных из Excel файла в БД
+        // РІРІРѕРґ РґР°РЅРЅС‹С… РёР· Excel С„Р°Р№Р»Р° РІ Р‘Р”
         public async Task<IActionResult> OnPostAdd(string table_name)
         {
             try
@@ -60,7 +60,7 @@ namespace Web2.Pages
                             }
                             break;
                         }
-                        ModelState.AddModelError("", "Неверные данные");
+                        ModelState.AddModelError("", "РќРµРІРµСЂРЅС‹Рµ РґР°РЅРЅС‹Рµ");
                         break;
                     case "analyzes":
                         if (Data.Count == 8)
@@ -81,7 +81,7 @@ namespace Web2.Pages
                             }
                             break;
                         }
-                        ModelState.AddModelError("", "Неверные данные");
+                        ModelState.AddModelError("", "РќРµРІРµСЂРЅС‹Рµ РґР°РЅРЅС‹Рµ");
                         break;
                     case "examination":
                         if (Data.Count == 13)
@@ -108,7 +108,7 @@ namespace Web2.Pages
                             }
                             break;
                         }
-                        ModelState.AddModelError("", "Неверные данные");
+                        ModelState.AddModelError("", "РќРµРІРµСЂРЅС‹Рµ РґР°РЅРЅС‹Рµ");
                         break;
                     case "archive_group":
                         if (Data.Count == 2)
@@ -124,7 +124,7 @@ namespace Web2.Pages
                             }
                             break;
                         }
-                        ModelState.AddModelError("", "Неверные данные");
+                        ModelState.AddModelError("", "РќРµРІРµСЂРЅС‹Рµ РґР°РЅРЅС‹Рµ");
                         break;
                     case "patient_analyzes":
                         if (Data.Count == 2)
@@ -140,7 +140,7 @@ namespace Web2.Pages
                             }
                             break;
                         }
-                        ModelState.AddModelError("", "Неверные данные");
+                        ModelState.AddModelError("", "РќРµРІРµСЂРЅС‹Рµ РґР°РЅРЅС‹Рµ");
                         break;
                     case "patient_examinations":
                         if (Data.Count == 2)
@@ -156,7 +156,7 @@ namespace Web2.Pages
                             }
                             break;
                         }
-                        ModelState.AddModelError("", "Неверные данные");
+                        ModelState.AddModelError("", "РќРµРІРµСЂРЅС‹Рµ РґР°РЅРЅС‹Рµ");
                         break;
                 }
             }
@@ -164,11 +164,10 @@ namespace Web2.Pages
             {
                 return Redirect("./Error");
             }
-            //return Redirect("./Excel");
             Data.Clear();
             return Page();
         }
-        // получение данных из Excel файла
+        // РїРѕР»СѓС‡РµРЅРёРµ РґР°РЅРЅС‹С… РёР· Excel С„Р°Р№Р»Р°
         public async Task<IActionResult> OnPostImport(IFormFile file)
         {
             if (file != null)
@@ -176,9 +175,9 @@ namespace Web2.Pages
                 try
                 {
                     Data = new List<List<string>>();
-                    //Load your Excel file
+                    // Р·Р°РіСЂСѓР·РєР° Excel С„Р°Р№Р»Р°
                     var workbook = new WorkBook(file.OpenReadStream());
-                    //Select your Worksheet
+                    // РІС‹Р±РѕСЂ СЂР°Р±РѕС‡РµРіРѕ Р»РёСЃС‚Р°
                     WorkSheet sheet = workbook.DefaultWorkSheet;
                     for (int i = 0; i < sheet.RowCount; i++)
                     {
