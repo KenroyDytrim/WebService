@@ -9,13 +9,13 @@ namespace Web2.Pages.Database.Examinations
 {
     public class ExaminationsModel : PageModel
     {
-        // выбор группы
+        // РІС‹Р±РѕСЂ РіСЂСѓРїРїС‹
         public List<SelectListItem>? GetGroup()
         {
             List<SelectListItem> group = new List<SelectListItem>();
-            group.Add(new SelectListItem() { Text = "Контрольная группа", Value = "1" });
-            group.Add(new SelectListItem() { Text = "Основная группа", Value = "2" });
-            group.Add(new SelectListItem() { Text = "Группа сравнения", Value = "3" });
+            group.Add(new SelectListItem() { Text = "РљРѕРЅС‚СЂРѕР»СЊРЅР°СЏ РіСЂСѓРїРїР°", Value = "1" });
+            group.Add(new SelectListItem() { Text = "РћСЃРЅРѕРІРЅР°СЏ РіСЂСѓРїРїР°", Value = "2" });
+            group.Add(new SelectListItem() { Text = "Р“СЂСѓРїРїР° СЃСЂР°РІРЅРµРЅРёСЏ", Value = "3" });
             return group;
         }
 
@@ -27,7 +27,7 @@ namespace Web2.Pages.Database.Examinations
         }
 
         public IList<Examination> examination { get; set; } = default!;
-        // получение анализов пациентов
+        // РїРѕР»СѓС‡РµРЅРёРµ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РґРёСЃРїР°РЅСЃРµСЂРёР·Р°С†РёРё
         public async Task OnGetAsync(int? group)
         {
 			string email = User.Identity.Name.ToString();
@@ -63,7 +63,7 @@ namespace Web2.Pages.Database.Examinations
 				}
             }
         }
-        // выбор анализов для пациентов определённой группы
+        // РІС‹Р±РѕСЂ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РґРёСЃРїР°РЅСЃРµСЂРёР·Р°С†РёРё РґР»СЏ РїР°С†РёРµРЅС‚РѕРІ РѕРїСЂРµРґРµР»РµРЅРЅРѕР№ РіСЂСѓРїРїС‹
         public IActionResult OnPost(string G1)
         {
             int G = Convert.ToInt32(G1);
@@ -71,7 +71,7 @@ namespace Web2.Pages.Database.Examinations
 
             return Redirect(url);
         }
-        // удаление анализа из БД
+        // СѓРґР°Р»РµРЅРёРµ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РґРёСЃРїР°РЅСЃРµСЂРёР·Р°С†РёРё РёР· Р‘Р”
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
             var b = await _context.examination.FindAsync(id);

@@ -20,7 +20,7 @@ namespace Web2.Pages.Database.Examinations
         public patient_archive Patient { get; set; }
         [BindProperty]
         public Patient_Examination P_E { get; set; }
-        // ��������� ��������
+        // получение результатов диспансеризации
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -37,7 +37,7 @@ namespace Web2.Pages.Database.Examinations
             }
             return Page();
         }
-        // ��������� ��������
+        // изменение результатов диспансеризации
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)

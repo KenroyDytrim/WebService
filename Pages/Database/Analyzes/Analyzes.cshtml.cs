@@ -9,6 +9,7 @@ namespace Web2.Pages.Database.Analyzes
     {
         [BindProperty]
         public Models.Analyzes Analyzes { get; set; }
+        // выбор группы
         public List<SelectListItem>? GetGroup()
         {
             List<SelectListItem> group = new List<SelectListItem>();
@@ -25,7 +26,7 @@ namespace Web2.Pages.Database.Analyzes
         }
 
         public IList<Models.Analyzes> analyzes { get;set; } = default!;
-
+        // получение анализов пациентов
         public async Task OnGetAsync(int? group)
         {
 			string email = User.Identity.Name.ToString();
@@ -61,6 +62,7 @@ namespace Web2.Pages.Database.Analyzes
                 } 
             }
         }
+        // выбор анализов для пациентов определённой группы
         public IActionResult OnPost(string G1)
         {
             int G = Convert.ToInt32(G1);
@@ -68,6 +70,7 @@ namespace Web2.Pages.Database.Analyzes
 
             return Redirect(url);
         }
+        // удаление анализа из БД
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
             var b = await _context.analyzes.FindAsync(id);

@@ -20,7 +20,7 @@ namespace Web2.Pages.Database.Analyzes
         public patient_archive Patient { get; set; }
         [BindProperty]
         public Patient_Analyzes P_A { get; set; }
-
+        // получение анализов пациентов
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -37,7 +37,7 @@ namespace Web2.Pages.Database.Analyzes
             }
             return Page();
         }
-
+        // изменение анализов пациентов
         public async Task<IActionResult> OnPostEditAsync()
         {
             if (!ModelState.IsValid)

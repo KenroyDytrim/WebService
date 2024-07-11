@@ -48,6 +48,7 @@ namespace Web2.Pages
         // авторизация
         public async Task<IActionResult> OnPostLogin(LogMod mod)
         {
+            mod.Email = mod.Email.ToLower();
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
@@ -94,7 +95,7 @@ namespace Web2.Pages
 		{
             if (User.Identity.IsAuthenticated)
             {
-                string Log = User.Identity.Name.ToString().ToLower();
+                string Log = User.Identity.Name.ToString();
                 if (_context.user != null)
                 {
                     user = await _context.user.FromSqlRaw($"SELECT * FROM \"AspNetUsers\" WHERE \"UserName\"=\'{Log}\'").ToListAsync();
