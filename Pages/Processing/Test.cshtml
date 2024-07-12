@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="~/css/pyscript.css" />
 
-    <script defer src="~/scripts/pyscript.js"></script>
+    <script defer src="~/scripts/pyscript.js" asp-append-version="true" ></script>
 
     <py-config>
 
@@ -134,9 +134,13 @@
 
     <p style="font-size: 24px;">Результат: 🐍</p>
 
-    <a href="#" class="link"><span> ? </span></a>
+    <a href="/Instructions" class="link"><span> ? </span></a>
 
     </div>
+
+	<div style="width: 45vw; display:none; " id='err'>
+        <p style="color: red; font-size: 2.5vw; " > Все поля должны быть заполнены!!! </p>
+	</div>
 
     <div data-aos="fade-up-left" id="main" style="display: none;">
 

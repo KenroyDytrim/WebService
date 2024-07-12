@@ -163,10 +163,33 @@
              $('#tblCustomers').DataTable( {
                  dom: 'Bfrtip',
                  buttons: [
-                     'copy', 'excel', 'pdf', 'print'
-                 ],
+                     {
+                         extend: 'print',
+                         exportOptions: {
+                             columns: [1, 2, 3, 4, 5]
+                         }
+                     },
+                     {
+                         extend: 'copyHtml5',
+                         exportOptions: {
+                             columns: [1, 2, 3, 4, 5]
+                         }
+                     },
+                     {
+                         extend: 'excelHtml5',
+                         exportOptions: {
+                             columns: [1, 2, 3, 4, 5]
+                         }
+                     },
+                     {
+                         extend: 'pdfHtml5',
+                         exportOptions: {
+                             columns: [1, 2, 3, 4, 5]
+                         }
+                     },
+                     ],
                   language: { url: "https://cdn.datatables.net/plug-ins/1.13.4/i18n/ru.json", },
-                  columnDefs: [{ type: 'date-eu', targets: [4] }]
+                  columnDefs: [{ type: 'date-eu', targets: [0] }]
              });
              $('.dataTables_length').addClass('bs-select');
          } );

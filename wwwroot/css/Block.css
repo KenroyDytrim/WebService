@@ -18,6 +18,8 @@
 .post-item-wrap {
     background: var(--light);
     position: relative;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
     .post-item-wrap:after {
@@ -42,7 +44,6 @@
 
 .post-link {
     text-decoration: none;
-    display: block;
     padding: 30px;
 }
 
