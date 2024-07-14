@@ -45,10 +45,10 @@ div{
 }
 
 hr {
-    border: none; /* Убираем границу */
-    background-color: red; /* Цвет линии */
-    color: red; /* Цвет линии для IE6-7 */
-    height: 3px; /* Толщина линии */
+    border: none; /* РЈР±РёСЂР°РµРј РіСЂР°РЅРёС†Сѓ */
+    background-color: red; /* Р¦РІРµС‚ Р»РёРЅРёРё */
+    color: red; /* Р¦РІРµС‚ Р»РёРЅРёРё РґР»СЏ IE6-7 */
+    height: 3px; /* РўРѕР»С‰РёРЅР° Р»РёРЅРёРё */
 }
 
 .headM {
@@ -335,6 +335,8 @@ table tr.marked {
     background: rgba(28,28,28,0);
     color: #0d6efd;
     border: 0;
+    font-size: 1.25rem;
+    text-decoration: none;
 }
 
     .bt-ur:hover {
