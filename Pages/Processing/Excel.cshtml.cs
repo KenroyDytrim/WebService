@@ -162,7 +162,7 @@ namespace Web2.Pages
             }
             catch (Exception ex)
             {
-                return Redirect("./Error");
+                return Redirect("/Error");
             }
             Data.Clear();
             return Page();
@@ -191,7 +191,7 @@ namespace Web2.Pages
                 }
                 catch (Exception ex)
                 {
-                    return Redirect("./Error");
+                    return Redirect("/Error");
                 }
             }
             return Page();
