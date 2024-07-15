@@ -11,8 +11,8 @@ namespace Web2.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "user");
+            //migrationBuilder.DropTable(
+                //name: "user");
 
             migrationBuilder.AlterColumn<string>(
                 name: "Email",
@@ -95,35 +95,35 @@ namespace Web2.Migrations
                 oldType: "character varying(256)",
                 oldMaxLength: 256);
 
-            migrationBuilder.CreateTable(
-                name: "user",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    Login = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    NormalizedEmail = table.Column<string>(type: "text", nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "text", nullable: true),
-                    Password = table.Column<string>(type: "text", nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: true),
-                    Phone = table.Column<string>(type: "text", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
-                    Surname = table.Column<string>(type: "text", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    UserName = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_user", x => x.Id);
-                });
+            //migrationBuilder.CreateTable(
+                //name: "user",
+                //columns: table => new
+                //{
+                    //Id = table.Column<string>(type: "text", nullable: false),
+                    //AccessFailedCount = table.Column<int>(type: "integer", nullable: false),
+                    //ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    //Email = table.Column<string>(type: "text", nullable: false),
+                    //EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    //LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    //LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    //Login = table.Column<string>(type: "text", nullable: false),
+                    //Name = table.Column<string>(type: "text", nullable: false),
+                    //NormalizedEmail = table.Column<string>(type: "text", nullable: true),
+                    //NormalizedUserName = table.Column<string>(type: "text", nullable: true),
+                    //Password = table.Column<string>(type: "text", nullable: false),
+                    //PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    //Phone = table.Column<string>(type: "text", nullable: false),
+                    //PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    //PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    //SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    //Surname = table.Column<string>(type: "text", nullable: false),
+                    //TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    //UserName = table.Column<string>(type: "text", nullable: true)
+                //},
+                //constraints: table =>
+                //{
+                    //table.PrimaryKey("PK_user", x => x.Id);
+                //});
         }
     }
 }

@@ -123,48 +123,48 @@ namespace Web2.Migrations
                 name: "Discriminator",
                 table: "AspNetRoles");
 
-            migrationBuilder.CreateTable(
-                name: "role",
-                columns: table => new
-                {
-                    idRole = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_role", x => x.idRole);
-                });
+            //migrationBuilder.CreateTable(
+                //name: "role",
+                //columns: table => new
+                //{
+                    //idRole = table.Column<int>(type: "integer", nullable: false)
+                        //.Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    //Name = table.Column<string>(type: "text", nullable: false)
+                //},
+                //constraints: table =>
+                //{
+                    //table.PrimaryKey("PK_role", x => x.idRole);
+                //});
 
-            migrationBuilder.CreateTable(
-                name: "user",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    idRole = table.Column<int>(type: "integer", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    Login = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Password = table.Column<string>(type: "text", nullable: false),
-                    Phone = table.Column<string>(type: "text", nullable: false),
-                    Surname = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_user", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_user_role_idRole",
-                        column: x => x.idRole,
-                        principalTable: "role",
-                        principalColumn: "idRole",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            //migrationBuilder.CreateTable(
+                //name: "user",
+                //columns: table => new
+                //{
+                    //id = table.Column<int>(type: "integer", nullable: false)
+                        //.Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    //idRole = table.Column<int>(type: "integer", nullable: false),
+                    //Email = table.Column<string>(type: "text", nullable: false),
+                    //Login = table.Column<string>(type: "text", nullable: false),
+                    //Name = table.Column<string>(type: "text", nullable: false),
+                    //Password = table.Column<string>(type: "text", nullable: false),
+                    //Phone = table.Column<string>(type: "text", nullable: false),
+                    //Surname = table.Column<string>(type: "text", nullable: false)
+                //},
+                //constraints: table =>
+                //{
+                    //table.PrimaryKey("PK_user", x => x.id);
+                    //table.ForeignKey(
+                        //name: "FK_user_role_idRole",
+                        //column: x => x.idRole,
+                        //principalTable: "role",
+                        //principalColumn: "idRole",
+                        //onDelete: ReferentialAction.Cascade);
+                //});
 
-            migrationBuilder.CreateIndex(
-                name: "IX_user_idRole",
-                table: "user",
-                column: "idRole");
+            //migrationBuilder.CreateIndex(
+                //name: "IX_user_idRole",
+                //table: "user",
+                //column: "idRole");
         }
     }
 }
