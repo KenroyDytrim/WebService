@@ -60,7 +60,7 @@ public class Program
 		var app = builder.Build();
 
         // Запуск автоматической миграции
-        var score = app.Services.CreateScope();
+        using var score = app.Services.CreateScope();
         score
             .ServiceProvider
             .GetRequiredService<AppDbContext>()
