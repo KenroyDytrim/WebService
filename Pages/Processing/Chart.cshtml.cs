@@ -126,36 +126,39 @@ namespace Web2.Pages
                 }
             }
 
-            int pocket = (int)Math.Sqrt(data.Count());
-            double min = data.Min();
-            double max = data.Max();
-            double sizeP = (max - min) / pocket;
-
-            List<double> Pockets = new List<double>();
-            Pockets.Add(min);
-            for (int i = 0; i < pocket; i++)
+            if (data.Count > 0)
             {
-                Pockets.Add(Pockets[i] + sizeP);
-            }
-            int[] dataP = new int[pocket + 1];
-            Array.Clear(dataP, 0, dataP.Length);
+                int pocket = (int)Math.Sqrt(data.Count());
+                double min = data.Min();
+                double max = data.Max();
+                double sizeP = (max - min) / pocket;
 
-            for (int i = 0; i < Pockets.Count - 1; i++)
-            {
-                for (int j = 0; j < data.Count; j++)
+                List<double> Pockets = new List<double>();
+                Pockets.Add(min);
+                for (int i = 0; i < pocket; i++)
                 {
-                    if (data[j] >= Pockets[i] && data[j] <= Pockets[i + 1])
-                        dataP[i]++;
+                    Pockets.Add(Pockets[i] + sizeP);
                 }
-            }
+                int[] dataP = new int[pocket + 1];
+                Array.Clear(dataP, 0, dataP.Length);
 
-            for (int i = 0; i < dataP.Count(); i++)
-            {
-                distribution.Add(new Distribution()
+                for (int i = 0; i < Pockets.Count - 1; i++)
                 {
-                    Pocket = Pockets[i].ToString("0.00"),
-                    Count = dataP[i]
-                });
+                    for (int j = 0; j < data.Count; j++)
+                    {
+                        if (data[j] >= Pockets[i] && data[j] <= Pockets[i + 1])
+                            dataP[i]++;
+                    }
+                }
+
+                for (int i = 0; i < dataP.Count(); i++)
+                {
+                    distribution.Add(new Distribution()
+                    {
+                        Pocket = Pockets[i].ToString("0.00"),
+                        Count = dataP[i]
+                    });
+                }
             }
 
             return distribution;

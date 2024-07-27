@@ -96,6 +96,34 @@ public class Program
                     await roleP.CreateAsync(new IdentityRole(role));
             }
         }
+        // Добавление групп для пациентов.
+        using (var scope = app.Services.CreateScope())
+        {
+            var groupP = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            if (! groupP.patient_groups.Any())
+            {
+
+                groupP.patient_groups.AddRange(
+                    new patient_group
+                    {
+                        id_group = 1,
+                        title = "Контрольная группа"
+                    },
+                    new patient_group
+                    {
+                        id_group = 2,
+                        title = "Основная группа"
+                    },
+                    new patient_group
+                    {
+                        id_group = 3,
+                        title = "Группа сравнения"
+                    }
+                );
+                groupP.SaveChanges();
+            }
+        }
         // Добавление администратора.
         using (var scope = app.Services.CreateScope())
         {
