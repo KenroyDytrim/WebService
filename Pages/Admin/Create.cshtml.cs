@@ -17,27 +17,27 @@ namespace Web2.Pages.Admin
             public string Role { get; set; }
 
             [Required(ErrorMessage = "Не указан пароль")]
-	    [DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
-	    [StringLength(100, ErrorMessage = "Длина {0} должна быть не менее {2} и не более {1} символов.", MinimumLength = 8)]
+	        [DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+	    	[StringLength(100, ErrorMessage = "Длина {0} должна быть не менее {2} и не более {1} символов.", MinimumLength = 8)]
             [Display(Name = "Password")]
             public string Password { get; set; }
-	    [Required(ErrorMessage = "Не указан Email")]
-	    public string Email { get; set; }
-	    [Required(ErrorMessage = "Не указан логин")]
-	    public string Login { get; set; }
-	    [Required(ErrorMessage = "Не указана фамилия")]
-	    public string Surname { get; set; }
-	    [Required(ErrorMessage = "Не указано имя")]
-	    public string Name { get; set; }
-	    [Required(ErrorMessage = "Не указан номер телефона")]
-	    [Phone]
-	    public string Phone { get; set; }
+	    	[Required(ErrorMessage = "Не указан Email")]
+	    	public string Email { get; set; }
+	    	[Required(ErrorMessage = "Не указан логин")]
+	    	public string Login { get; set; }
+	    	[Required(ErrorMessage = "Не указана фамилия")]
+	    	public string Surname { get; set; }
+	    	[Required(ErrorMessage = "Не указано имя")]
+	    	public string Name { get; set; }
+	    	[Required(ErrorMessage = "Не указан номер телефона")]
+	    	[Phone]
+	    	public string Phone { get; set; }
 
-	}
+		}
 
         [BindProperty]
         public InputModel Input { get; set; }
-	// выбор роли пользователя
+		// выбор роли пользователя
         public List<SelectListItem>? GetRole()
         {
             List<SelectListItem> role = new List<SelectListItem>();
@@ -80,8 +80,8 @@ namespace Web2.Pages.Admin
                                             new { userId = user.Id, code = code },
                                             protocol: HttpContext.Request.Scheme);
                                         EmailService emailService = new EmailService();
-                                        await emailService.SendEmailAsync(user.Email, "Confirm your account",
-                                            $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
+                                        await emailService.SendEmailAsync(user.Email, "Подтвердите ваш аккаунт",
+                                            $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a> <div><p>Пароль для авторизации: {Input.Password}</p></div>");
 
                                         return Redirect("/Admin/AdminPanel");
 				}

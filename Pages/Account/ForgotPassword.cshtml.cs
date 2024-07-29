@@ -20,7 +20,7 @@ namespace Web2.Pages
                 var user = await _userManager.FindByEmailAsync(Email);
                 if (user == null || !await _userManager.IsEmailConfirmedAsync(user))
                 {
-                    ModelState.AddModelError("", "Email �� ������");
+                    ModelState.AddModelError("", "Email не найден");
                     return Page();
                 }
 
@@ -31,7 +31,7 @@ namespace Web2.Pages
                     new { userId = user.Id, code },
                     protocol: HttpContext.Request.Scheme);
                 EmailService emailService = new EmailService();
-                await emailService.SendEmailAsync(Email, "Reset Password",
+                await emailService.SendEmailAsync(Email, "Сброс пароля",
                     $"Для сброса пароля пройдите по ссылке: <a href='{callbackUrl}'>link</a>");
             }
             return RedirectToPage("/Account/ForgotPasswordConfirmation");

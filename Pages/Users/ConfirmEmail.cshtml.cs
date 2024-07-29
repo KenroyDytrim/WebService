@@ -17,14 +17,14 @@ namespace Web2.Pages.Account
 		}
 		[BindProperty]
 		public User user { get; set; } = default!;
-        // получение данных добавленного пользователя
+        // РїРѕР»СѓС‡РµРЅРёРµ РґР°РЅРЅС‹С… РґРѕР±Р°РІР»РµРЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 		public async Task OnGetAsync(string userId, string code) 
 		{
 			user = await _userManager.FindByIdAsync(userId);
             Uid = userId;
             codeT = code;
 		}
-        // подтверждение пользователем почты после регистрации
+        // РїРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј РїРѕС‡С‚С‹ РїРѕСЃР»Рµ СЂРµРіРёСЃС‚СЂР°С†РёРё
         public async Task<IActionResult> OnPostAsync(string Uid, string codeT)
         {
             if (Uid == null || codeT == null)
