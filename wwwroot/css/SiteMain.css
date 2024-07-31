@@ -1050,8 +1050,8 @@
   letter-spacing: 2px;
   background-image: none;
   text-transform: uppercase;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 14px;
+  padding-right: 14px;
 }
 
 @media (max-width: 1199px) {
