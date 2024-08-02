@@ -1,7 +1,9 @@
+using DocumentFormat.OpenXml.Spreadsheet;
 using IronXL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Drawing.Printing;
 using Web2.Models;
 
 namespace Web2.Pages
@@ -174,11 +176,15 @@ namespace Web2.Pages
             {
                 try
                 {
+                    Console.WriteLine(1);
                     Data = new List<List<string>>();
                     // загрузка Excel файла
+                    Console.WriteLine(1);
                     var workbook = new WorkBook(file.OpenReadStream());
                     // выбор рабочего листа
+                    Console.WriteLine(1);
                     WorkSheet sheet = workbook.DefaultWorkSheet;
+                    Console.WriteLine(1);
                     for (int i = 0; i < sheet.RowCount; i++)
                     {
                         var row = new List<string>();

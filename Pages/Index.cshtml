@@ -308,17 +308,30 @@
                 <textarea placeholder="Введите сообщение" rows="4" cols="50" id="message-d70e" name="message" class="u-grey-10 u-input u-input-rectangle" required=""></textarea>
               </div>
               <div class="u-align-center u-form-group u-form-submit u-form-group-5">
-                <input type="submit" value="Отправить сообщение" class="u-active-grey-90 u-border-none u-btn u-btn-submit u-button-style u-hover-grey-90 u-palette-1-base u-btn-1"/>
+                <input type="submit" value="Отправить сообщение" onclick="maintainscrollposition()" class="u-active-grey-90 u-border-none u-btn u-btn-submit u-button-style u-hover-grey-90 u-palette-1-base u-btn-1"/>
               </div>
-              <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>
-              <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try again. </div>
-              <input type="hidden" value="" name="recaptchaResponse">
-              <input type="hidden" name="formServices" value="10d09c92-f8b4-5faf-cd1f-aff92456dcfb">
             </form>
           </div>
         </div>
       </div>
     </section>
     
-  
+    @section scripts{
+
+        <script type="text/javascript">
+            function maintainscrollposition() {
+                var y = window.scrollY
+                console.log(y);
+                localStorage.setItem('topposition', y);
+            }
+
+            $(function () {
+                var top = localStorage.getItem('topposition');
+                window.scroll(0, top);
+                localStorage.removeItem('topposition');
+            });
+        </script>
+        
+    }
+
 </body>
