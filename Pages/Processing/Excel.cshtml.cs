@@ -178,8 +178,7 @@ namespace Web2.Pages
                 {
                     Data = new List<List<string>>();
                     // загрузка Excel файла
-                     Console.WriteLine(file.OpenReadStream().CanRead);
-                    var workbook = new WorkBook(file.OpenReadStream());
+                    WorkBook workbook = WorkBook.Load(file.OpenReadStream());
                     // выбор рабочего листа
                     WorkSheet sheet = workbook.DefaultWorkSheet;
                     for (int i = 0; i < sheet.RowCount; i++)
