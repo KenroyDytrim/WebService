@@ -1,6 +1,7 @@
 ﻿@page
 @model Web2.Pages.Database.TestChartModel
 @{
+    ViewData["Title"] = "Графики";
 }
 
 <head>
@@ -9,33 +10,128 @@
 
 <body>
 
-    <form method="post"></form>
+    <div style="display: flex;">
 
-    <div data-aos="fade-up-left">
+        <div class="all_charts">
 
-        <div class="text-center">
-            <h4 class="display-4">Количество патологий</h4>
-            <div class="card">
-                <div class="card-header" style="color:black;">Вертикальная гистограмма</div>
-                <div class="chart-container">
-                    <canvas id="bar-chart" width="100" height="300"></canvas>
+            <div class="text-center">
+                <h4 class="display-4">Распространенность патологий</h4>
+                <div class="card">
+                    <div class="chart-container">
+                        <canvas id="bar-chart" width="100" height="300"></canvas>
+                    </div>
                 </div>
+            </div>
+            <form method="post" onsubmit="submitForm()">
+                <p>
+                    <div class="row">
+                        <div class="col-md-3" style="width: 15.5vw; ">
+                            <label class="form-label">Группа</label>
+                            <select class="form-select" name="G1" id="G" asp-items="Model.GetGroup()">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </p>
+
+                <div class="form-group">
+                    <input type="submit" style="margin: 5px 20px 5px 20px;" value="Выбрать" class="btn btn-primary" onclick="maintainscrollposition()" />
+                </div>
+            </form>
+
+        </div>
+
+        <div class="all_legents">
+
+            <div style="display:flex; justify-content: space-between; flex-direction: column;">
+
+                <p style="display:flex;">
+                    <label style="color: rgba(255, 99, 132, 1);">■ </label>
+                    <label> – изменение контуров замыкательных пластинок</label>
+                </p>
+
+                <p style="display:flex;">
+                    <label style="color: rgba(54, 162, 235, 1);">■ </label>
+                    <label> – клиновидная форма тел позвонков</label>
+                </p>
+
+                <p style="display:flex;">
+                    <label style="color: rgba(255, 206, 86, 1);">■ </label>
+                    <label> – грыжи Шморля</label>
+                </p>
+
+                <p style="display:flex;">
+                    <label style="color: rgba(75, 192, 80, 1);">■ </label>
+                    <label> – остеопороз тел позвонков</label>
+                </p>
+
+                <p style="display:flex;">
+                    <label style="color: rgba(153, 102, 255, 1);">■ </label>
+                    <label> – уменьшение высоты межпозвоночного диска</label>
+                </p>
+
+                <p style="display:flex;">
+                    <label style="color: rgba(242, 124, 57, 1);">■ </label>
+                    <label> – изменение контуров апофизов</label>
+                </p>
+
+                <p style="display:flex;">
+                    <label style="color: rgba(56, 204, 167, 1);">■ </label>
+                    <label> – остеохондроз</label>
+                </p>
+
+                <p style="display:flex;">
+                    <label style="color: rgba(213, 240, 117, 1);">■ </label>
+                    <label> – стабилографические изменения</label>
+                </p>
+
+                <p style="display:flex;">
+                    <label style="color: rgba(247, 135, 223, 1);">■ </label>
+                    <label> – ЭНМГ (болезни двигательных нейронов)</label>
+                </p>
+
             </div>
         </div>
 
-        <p>
-            <div class="row">
-                <div class="col-md-3">
-                    <label class="form-label">Группа</label>
-                    <select class="form-select" name="G1" id="G" asp-items="Model.GetGroup()">
-                        <option value=""></option>
-                    </select>
+    </div>
+
+    <div>
+
+        <div class="all_charts" style="margin: 50px 0px; width: 100%;">
+
+            <div class="text-center">
+                <h4 class="display-4">Распределение показателя</h4>
+                <h4 id="text" class="display-6">@Model.NameA</h4>
+                <div class="card">
+                    <div class="chart-container">
+                        <canvas id="bar-chart2" width="100" height="300"></canvas>
+                    </div>
                 </div>
             </div>
-        </p>
 
-        <div class="form-group">
-            <input type="submit" style="margin: 5px 20px 5px 20px;" value="Выбрать" class="btn btn-primary" onclick="updateBar()" />
+            <form method="post" onsubmit="submitForm()">
+            <p>
+                <div class="row" style="width: 70%; margin: 5px 20px 5px 5px;">
+                    <div class="col-md-3" style="width: 15.5vw; ">
+                        <label class="form-label">Группа</label>
+                        <select class="form-select" name="G2" id="G2" asp-items="Model.GetGroup()">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="col-md-3" style="width: 25.5vw; ">
+                        <label class="form-label">Показателя</label>
+                        <select class="form-select" name="K" id="N" asp-items="Model.GetAnalysis()"></select>
+                    </div>
+                </div>
+            </p>
+
+            <p style="margin: 5px 20px 5px 20px;">Цвет графика: <input type="color" name="bg" id="col" value=@Model.col> </p>
+
+            <div class="form-group">
+                <input type="submit" style="margin: 5px 20px 5px 20px;" value="Выбрать" class="btn btn-primary" onclick="maintainscrollposition()" />
+            </div>
+            </form>
+
         </div>
 
     </div>
@@ -48,30 +144,29 @@
         <script>
 
             var Count = [];
-            var Pathologies = [];
+            var Pathologies = ["Изм.Конт.", "Клин.Форм.", "Грыжи Шморля", "Остеоп.", "Умен.Выс.", "Изм.Апоф.", "Остеох.", "Стаб.Изм.", "ЭНМГ"];
 
-            @if (Model.GetData1().Count > 0)
+            @if (Model.GetData1(Model.Gp).Count > 0)
             {
-                foreach (var item in Model.GetData1())
+                foreach (var item in Model.GetData1(Model.Gp))
                 {
                     @:Count.push(@item.Count);
-                    @:Pathologies.push('@item.Name');
                 }
             }
 
-                var Patholog = {
+                            var Patholog = {
                 label: "Patholog",
                 data: Count,
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 80, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(242, 124, 13, 0.2)',
-                    'rgba(56, 204, 167, 0.2)',
-                    'rgba(213, 240, 117, 0.2)',
-                    'rgba(247, 135, 223, 0.2)'
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 80, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(242, 124, 13, 0.5)',
+                    'rgba(56, 204, 167, 0.5)',
+                    'rgba(213, 240, 117, 0.5)',
+                    'rgba(247, 135, 223, 0.5)'
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
@@ -98,104 +193,152 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    title: {
-                        display: true,
-                        text: 'Легенда'
-                    }
+
                 },
                 scales: {
                     x: {
                         barPercentage: 1,
                         categoryPercentage: 0.6,
+                        ticks: {
+                            font: {
+                                size: 14,
+                            }
+                        }
                     },
                     y: {
                         barPercentage: 1,
                         categoryPercentage: 0.6,
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            font: {
+                                size: 16,
+                            }
                         }
-                    }
+                    },
                 }
             }
+
+            Chart.defaults.plugins.legend.display = false;
 
             var verticalBarChart = new Chart(
                 document.getElementById('bar-chart').getContext('2d'), {
                 type: 'bar',
                 data: datasetvalues,
-                options: barChartOptions
+                options: barChartOptions,
             });
 
+            var col = document.getElementById("col");
+
+            var Count = [];
+            var Pockets = [];
+
+            @if (Model.GetData2(Model.B, Model.Gr).Count > 0)
+            {
+                foreach (var item in Model.GetData2(Model.B, Model.Gr))
+                {
+                    @:Count.push(@item.Count);
+                    @:Pockets.push('@item.Pocket');
+                }
+            }
+
+            var Pocket = {
+                label: "Pocket",
+                data: Count,
+                backgroundColor: addAlpha(col.value, 0.2),
+                borderColor: col.value,
+                borderWidth: 3,
+                lineTension: 0,
+                cubicInterpolationMode: 'monotone',
+                fill: true
+            };
+
+            var datasetvalues = {
+                labels: Pockets, // x-azis label values
+                datasets: [Pocket] // y-axis
+            };
+
+
+            var lineChartOptions = {
+                indexAxis: 'x',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 16,
+                            }
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            font: {
+                                size: 16,
+                            }
+                        }
+                    },
+                }
+            };
+
+            var LineChart = new Chart(
+                document.getElementById('bar-chart2').getContext('2d'), {
+                type: 'line',
+                data: datasetvalues,
+                options: lineChartOptions
+            });
 
         </script>
 
-        <script>
-            function updateBar() {
-                var element = document.getElementById("G");
+        <script type="text/javascript">
 
-                var person = { "FirstName": "Andrew", "LastName": "Lock", "Age": 31 };
-                $.ajax({
-                    type: "POST",
-                    url: "?handler=Abc",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    data: {G1: element.value},
-                    headers: {
-                        RequestVerificationToken:
-                            $('input:hidden[name="__RequestVerificationToken"]').val()
-                    },
-                })
-                    .done(function (result) {
-                        console.log(result);
-                    });
+            document.addEventListener('DOMContentLoaded', function () {
+                var item1 = localStorage.getItem('sortId1');
+                var select1 = document.getElementById("G");
+                select1.value = item1;
 
-                var buff = parseInt(element.value);
+                var item2 = localStorage.getItem('sortId2');
+                var select2 = document.getElementById("G2");
+                select2.value = item2;
 
-                                @if (Model.GetData1().Count > 0)
-                                {
-                                    foreach (var item in Model.GetData1())
-                                    {
-                                        @:Count.push(@item.Count);
-                                        @:Pathologies.push('@item.Name');
-                                    }
-                                }
+                var item3 = localStorage.getItem('sortId3');
+                var select3 = document.getElementById("N");
+                select3.value = item3;
+            });
+            function submitForm() {
+                var select1 = document.getElementById("G");
+                var value1 = select1.options[select1.selectedIndex].value;
+                localStorage.setItem('sortId1', value1);
 
-                            var Patholog = {
-                            label: "Patholog",
-                            data: Count,
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 80, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(242, 124, 13, 0.2)',
-                                'rgba(56, 204, 167, 0.2)',
-                                'rgba(213, 240, 117, 0.2)',
-                                'rgba(247, 135, 223, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 80, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(242, 124, 57, 1)',
-                                'rgba(56, 204, 167, 1)',
-                                'rgba(213, 240, 117, 1)',
-                                'rgba(247, 135, 223, 1)'
-                            ],
-                            borderWidth: 1,
-                            lineTension: 0,
-                        };
+                var select2 = document.getElementById("G2");
+                var value2 = select2.options[select2.selectedIndex].value;
+                localStorage.setItem('sortId2', value2);
 
-                        var datasetvalues = {
-                            labels: Pathologies, // x-azis label values
-                            datasets: [Patholog] // y-axis
-                        };
-
-                        verticalBarChart.data = datasetvalues;
-                        verticalBarChart.update();
+                var select3 = document.getElementById("N");
+                var value3 = select3.options[select3.selectedIndex].value;
+                localStorage.setItem('sortId3', value3);
             }
+
+        </script>
+
+        <script type="text/javascript">
+            function maintainscrollposition() {
+                var y = window.scrollY
+                console.log(y);
+                localStorage.setItem('topposition', y);
+            }
+
+            $(function () {
+                var top = localStorage.getItem('topposition');
+                window.scroll({
+                    top: top,
+                    left: 0,
+                    behavior: "instant",
+                });
+                localStorage.removeItem('topposition');
+            });
         </script>
 
         }

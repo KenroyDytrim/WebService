@@ -23,7 +23,7 @@
     <a asp-page="Create">Добавить</a>
 </p>
 
-<form method="post">
+<form method="post" onsubmit="submitForm()">
 <p>
     <div class="row">
             <div class="col-md-3">
@@ -195,6 +195,21 @@
          } );
      </script>
 
+      <script type="text/javascript">
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var itemP = localStorage.getItem('sortIdP');
+                var selectP = document.getElementById("Gr");
+                selectP.value = itemP;
+            });
+            function submitForm() {
+                var selectP = document.getElementById("Gr");
+                var valueP = selectP.options[selectP.selectedIndex].value;
+                localStorage.setItem('sortIdP', valueP);
+            }
+
+      </script>
+      
  }
 
 </body>

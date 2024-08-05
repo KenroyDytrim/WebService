@@ -21,7 +21,7 @@
     <a asp-page="Create">Добавить</a>
 </p>
 
-<form method="post">
+<form method="post" onsubmit="submitForm()">
 <p>
     <div class="row">
             <div class="col-md-3">
@@ -223,6 +223,22 @@
              $('.dataTables_length').addClass('bs-select');
          } );
      </script>
+
+      <script type="text/javascript">
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var itemE = localStorage.getItem('sortIdE');
+                var selectE = document.getElementById("Gr");
+                selectE.value = itemE;
+            });
+            function submitForm() {
+                var selectE = document.getElementById("Gr");
+                var valueE = selectE.options[selectE.selectedIndex].value;
+                localStorage.setItem('sortIdE', valueE);
+            }
+
+      </script>
+
     }
 
 </body>

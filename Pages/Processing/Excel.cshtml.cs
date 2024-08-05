@@ -176,15 +176,12 @@ namespace Web2.Pages
             {
                 try
                 {
-                    Console.WriteLine(1);
                     Data = new List<List<string>>();
                     // загрузка Excel файла
-                    Console.WriteLine(1);
+                     Console.WriteLine(file.OpenReadStream().CanRead);
                     var workbook = new WorkBook(file.OpenReadStream());
                     // выбор рабочего листа
-                    Console.WriteLine(1);
                     WorkSheet sheet = workbook.DefaultWorkSheet;
-                    Console.WriteLine(1);
                     for (int i = 0; i < sheet.RowCount; i++)
                     {
                         var row = new List<string>();
@@ -197,7 +194,9 @@ namespace Web2.Pages
                 }
                 catch (Exception ex)
                 {
-                    return Redirect("/Error");
+                    Data.Clear();
+                    ModelState.AddModelError("", "Файл не подходит");
+                    return Page();
                 }
             }
             return Page();

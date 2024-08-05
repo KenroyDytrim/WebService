@@ -12,20 +12,35 @@ namespace Web2.Pages.Database
 {
     public class TestChartModel : PageModel
     {
-        public int? G;
-
+        public int? Gp = 0;
+        public int? Gr = 0;
         public int? B = 1;
-        public string NameA = "������� ��������� ����� (�����/�)";
-        // ����� ������
+
+        public string? col = "#DC143C";
+
+        public string NameA = "Кальций сыворотки крови (ммоль/л)";
+        // выбор группы
         public List<SelectListItem>? GetGroup()
         {
             List<SelectListItem> group = new List<SelectListItem>();
-            group.Add(new SelectListItem() { Text = "����������� ������", Value = "1" });
-            group.Add(new SelectListItem() { Text = "�������� ������", Value = "2" });
-            group.Add(new SelectListItem() { Text = "������ ���������", Value = "3" });
+            group.Add(new SelectListItem() { Text = "Контрольная группа", Value = "1" });
+            group.Add(new SelectListItem() { Text = "Основная группа", Value = "2" });
+            group.Add(new SelectListItem() { Text = "Группа сравнения", Value = "3" });
             return group;
         }
-
+        // выбор показателя
+        public List<SelectListItem>? GetAnalysis()
+        {
+            List<SelectListItem> analysis = new List<SelectListItem>();
+            analysis.Add(new SelectListItem() { Text = "Кальций сыворотки крови (ммоль/л)", Value = "1" });
+            analysis.Add(new SelectListItem() { Text = "Фосфор сыворотки крови (ммоль/л)", Value = "2" });
+            analysis.Add(new SelectListItem() { Text = "Оксипролин сыворотки крови (ммоль/л)", Value = "3" });
+            analysis.Add(new SelectListItem() { Text = "Экскреция кальция (мМ/сутки)", Value = "4" });
+            analysis.Add(new SelectListItem() { Text = "Экскреция фосфора (ммоль/л)", Value = "5" });
+            analysis.Add(new SelectListItem() { Text = "Экскреция оксипролина (мкм/мг креатинина)", Value = "6" });
+            analysis.Add(new SelectListItem() { Text = "Степень выраженности ДСТ по Т.Милковской-Димитровой (в баллах)", Value = "7" });
+            return analysis;
+        }
 
         private readonly AppDbContext _context;
 
@@ -41,24 +56,56 @@ namespace Web2.Pages.Database
         public IList<Examination> examination { get; set; } = default!;
         public IList<Web2.Models.Analyzes> analyzes { get; set; } = default!;
 
-        public void OnGet(string G1)
+        public void OnGet()
         {
-            G = Convert.ToInt32(G1);
+
         }
 
-        public async Task<IActionResult> OnPostAbc(string G1)
-        { 
-            G = Convert.ToInt32(G1);
-            return new JsonResult(G);
+        public void OnPost(int? G1, int? G2, int? K, string? bg)
+        {
+            Gp = G1;
+            Gr = G2;
+            B = K;
+
+            if (bg != null) 
+            { 
+                col = bg;
+            }
+            
+
+            switch (B)
+            {
+                case 1:
+                    NameA = "Кальций сыворотки крови (ммоль/л)";
+                    break;
+                case 2:
+                    NameA = "Фосфор сыворотки крови (ммоль/л)";
+                    break;
+                case 3:
+                    NameA = "Оксипролин сыворотки крови (ммоль/л)";
+                    break;
+                case 4:
+                    NameA = "Экскреция кальция (мМ/сутки)";
+                    break;
+                case 5:
+                    NameA = "Экскреция фосфора (ммоль/л)";
+                    break;
+                case 6:
+                    NameA = "Экскреция оксипролина (мкм/мг креатинина)";
+                    break;
+                case 7:
+                    NameA = "Степень выраженности ДСТ по Т.Милковской-Димитровой (в баллах)";
+                    break;
+            }
         }
 
-        // ��������� ������ ��� ������� : "���-�� ���������"
-        public List<PathologCount> GetData1()
+        // получение данных для графика : "кол-во патологий"
+        public List<PathologCount> GetData1(int? G1)
         {
             List<PathologCount> pathologies = new List<PathologCount>();
             int[]? nums = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-            int? group = G;
+            int? group = G1;
 
             if (group == 0 || group == null)
                 examination = _context.examination.FromSqlRaw($"SELECT * FROM examination ORDER BY id_examination").ToList();
@@ -90,5 +137,89 @@ namespace Web2.Pages.Database
             return pathologies;
         }
 
+        // получение данных для графика: "Распределение показателей"
+        public List<Distribution> GetData2(int? K, int? G2)
+        {
+            List<Distribution> distribution = new List<Distribution>();
+            data.Clear();
+            int? n = 1;
+            
+            if ( K != null)
+            { 
+                n = K;
+            }
+            
+            int? group = G2;
+
+            if (group == 0 || group == null)
+                analyzes = _context.analyzes.FromSqlRaw($"SELECT * FROM analyzes ORDER BY id_analysis").ToList();
+            else
+                analyzes = _context.analyzes.FromSqlRaw($"SELECT * FROM analyzes WHERE id_analysis IN(SELECT id_analysis FROM patient_analyzes WHERE id_patient IN(SELECT id_patient FROM patient_archive WHERE id_patient IN(SELECT id_patient FROM archive_group WHERE id_group={group}) ORDER BY id_patient)) ORDER BY id_analysis").ToList();
+
+            foreach (var item in analyzes)
+            {
+                switch (n)
+                {
+                    case 1:
+                        data.Add(item.serum_calcium);
+                        break;
+                    case 2:
+                        data.Add(item.serum_phosphorus);
+                        break;
+                    case 3:
+                        data.Add(item.serum_oxyproline);
+                        break;
+                    case 4:
+                        data.Add(item.calcium_excretion);
+                        break;
+                    case 5:
+                        data.Add(item.phosphorus_excretion);
+                        break;
+                    case 6:
+                        data.Add(item.oxyproline_excretion);
+                        break;
+                    case 7:
+                        data.Add(item.severity_of_dst);
+                        break;
+                }
+            }
+
+            if (data.Count > 0)
+            {
+                int pocket = (int)Math.Sqrt(data.Count());
+                double min = data.Min();
+                double max = data.Max();
+                double sizeP = (max - min) / pocket;
+
+                List<double> Pockets = new List<double>();
+                Pockets.Add(min);
+                for (int i = 0; i < pocket; i++)
+                {
+                    Pockets.Add(Pockets[i] + sizeP);
+                }
+                int[] dataP = new int[pocket + 1];
+                Array.Clear(dataP, 0, dataP.Length);
+
+                for (int i = 0; i < Pockets.Count - 1; i++)
+                {
+                    for (int j = 0; j < data.Count; j++)
+                    {
+                        if (data[j] >= Pockets[i] && data[j] <= Pockets[i + 1])
+                            dataP[i]++;
+                    }
+                }
+
+                for (int i = 0; i < dataP.Count(); i++)
+                {
+                    distribution.Add(new Distribution()
+                    {
+                        Pocket = Pockets[i].ToString("0.00"),
+                        Count = dataP[i]
+                    });
+                }
+            }
+
+            return distribution;
+        }
     }
 }
