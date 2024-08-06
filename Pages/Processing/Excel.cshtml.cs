@@ -1,4 +1,3 @@
-using DocumentFormat.OpenXml.Spreadsheet;
 using IronXL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -178,6 +177,7 @@ namespace Web2.Pages
                 {
                     Data = new List<List<string>>();
                     // загрузка Excel файла
+                    print(Directory.GetCurrentDirectory())
                     WorkBook workbook = WorkBook.Load($"{Directory.GetCurrentDirectory()}/wwwroot/Database.xlsx");
                     // выбор рабочего листа
                     WorkSheet sheet = workbook.DefaultWorkSheet;
