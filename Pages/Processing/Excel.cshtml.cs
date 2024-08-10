@@ -177,14 +177,15 @@ namespace Web2.Pages
                 {
                     Data = new List<List<string>>();
 
-                    string[] allfiles = Directory.GetFiles("/app");
+                    string[] allfiles = Directory.GetFiles("/app/Web2");
                     foreach (string filename in allfiles)
                     {
                         Console.WriteLine(filename);
                     }
 
                     // загрузка Excel файла
-                    WorkBook workbook = WorkBook.Load($"{Directory.GetCurrentDirectory()}/Web2/wwwroot/Database.xlsx");
+                    //WorkBook workbook = WorkBook.Load($"{Directory.GetCurrentDirectory()}/Web2/wwwroot/Database.xlsx");
+                    WorkBook workbook = WorkBook.Load(file.OpenReadStream());
                     // выбор рабочего листа
                     WorkSheet sheet = workbook.DefaultWorkSheet;
                     for (int i = 0; i < sheet.RowCount; i++)
