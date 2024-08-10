@@ -180,7 +180,7 @@ namespace Web2.Pages
                     Console.WriteLine(Directory.GetCurrentDirectory());
 
                     // загрузка Excel файла
-                    WorkBook workbook = WorkBook.Load($"{Directory.GetCurrentDirectory()}/wwwroot/Database.xlsx");
+                    WorkBook workbook = WorkBook.Load($"{Directory.GetCurrentDirectory()}\wwwroot\Database.xlsx");
                     // выбор рабочего листа
                     WorkSheet sheet = workbook.DefaultWorkSheet;
                     for (int i = 0; i < sheet.RowCount; i++)
