@@ -177,7 +177,7 @@ namespace Web2.Pages
                 {
                     Data = new List<List<string>>();
 
-                    string[] allfiles = Directory.GetFiles(Directory.GetCurrentDirectory());
+                    string[] allfiles = Directory.GetFiles("/app/Web2");
                     foreach (string filename in allfiles)
                     {
                         Console.WriteLine(filename);
