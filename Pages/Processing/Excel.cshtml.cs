@@ -176,6 +176,9 @@ namespace Web2.Pages
                 try
                 {
                     Data = new List<List<string>>();
+
+                    Console.WriteLine(Directory.GetCurrentDirectory());
+
                     // загрузка Excel файла
                     WorkBook workbook = WorkBook.Load($"{Directory.GetCurrentDirectory()}/wwwroot/Database.xlsx");
                     // выбор рабочего листа
