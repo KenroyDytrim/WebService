@@ -4,18 +4,21 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Drawing.Printing;
 using Web2.Models;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Web2.Pages
 {
     public class ExcelModel : PageModel
     {
+        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly Web2.Data.AppDbContext _context;
         [BindProperty]
         public List<List<string>> Data { get; set; }
-        public ExcelModel(Web2.Data.AppDbContext context)
+        public ExcelModel(Web2.Data.AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             Data = new List<List<string>>();
+            _webHostEnvironment = webHostEnvironment;
         }
         // модели для разных таблиц БД
         public patient_archive Patient { get; set; }
@@ -177,15 +180,17 @@ namespace Web2.Pages
                 {
                     Data = new List<List<string>>();
 
-                    string[] allfiles = Directory.GetFiles("/app/Web2");
-                    foreach (string filename in allfiles)
+                    string fileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                    string rootPath = _webHostEnvironment.ContentRootPath;
+                    string filePath = Path.Combine(rootPath, fileName);
+
+                    using (var stream = System.IO.File.Create(filePath))
                     {
-                        Console.WriteLine(filename);
+                        await file.CopyToAsync(stream);
                     }
 
                     // загрузка Excel файла
-                    //WorkBook workbook = WorkBook.Load($"{Directory.GetCurrentDirectory()}/Web2/wwwroot/Database.xlsx");
-                    WorkBook workbook = WorkBook.Load(file.OpenReadStream());
+                    WorkBook workbook = WorkBook.Load(filePath);
                     // выбор рабочего листа
                     WorkSheet sheet = workbook.DefaultWorkSheet;
                     for (int i = 0; i < sheet.RowCount; i++)
