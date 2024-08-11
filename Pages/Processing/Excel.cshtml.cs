@@ -1,10 +1,12 @@
-using IronXL;
+//using IronXL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Drawing.Printing;
 using Web2.Models;
 using Microsoft.AspNetCore.Hosting;
+using ExcelDataReader;
+using System.Data;
 
 namespace Web2.Pages
 {
@@ -171,6 +173,41 @@ namespace Web2.Pages
             Data.Clear();
             return Page();
         }
+
+        DataTableCollection ReadFromExcel(string filePath, ref List<string> sheetNames)
+        {
+            try
+            {
+                DataTableCollection tableCollection = null;
+
+                using (var stream = System.IO.File.Open(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
+                    using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+                    {
+                        DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                        {
+                            ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                        });
+
+                        tableCollection = result.Tables;
+
+                        foreach (DataTable table in tableCollection)
+                        {
+                            sheetNames.Add(table.TableName);
+                        }
+                    }
+                }
+
+                return tableCollection;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         // получение данных из Excel файла
         public async Task<IActionResult> OnPostImport(IFormFile file)
         {
@@ -180,30 +217,50 @@ namespace Web2.Pages
                 {
                     Data = new List<List<string>>();
 
+                    List<string> sheetNames = new List<string>();
+
                     string fileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string rootPath = _webHostEnvironment.ContentRootPath;
                     string filePath = Path.Combine(rootPath, fileName);
-
-                    Console.WriteLine(filePath);
 
                     using (var stream = System.IO.File.Create(filePath))
                     {
                         await file.CopyToAsync(stream);
                     }
 
-                    // загрузка Excel файла
-                    WorkBook workbook = WorkBook.Load(filePath);
-                    // выбор рабочего листа
-                    WorkSheet sheet = workbook.DefaultWorkSheet;
-                    for (int i = 0; i < sheet.RowCount; i++)
+                    DataTableCollection tables = ReadFromExcel(filePath, ref sheetNames);
+
+                    foreach (DataTable dt in tables)
                     {
-                        var row = new List<string>();
-                        for (int j = 0; j < sheet.ColumnCount; j++)
+                        var Colum = new List<string>();
+                        for (int k = 0; k < dt.Columns.Count; k++)
+                            Colum.Add(dt.Columns[k].ToString());
+                        Data.Add(Colum);
+
+                        for (int i = 0; i < dt.Rows.Count; i++)
                         {
-                            row.Add(sheet.GetCellAt(i, j).Value.ToString());
+                            var row = new List<string>();
+                            for (int j = 0; j < dt.Columns.Count; j++)
+                            {
+                                row.Add(dt.Rows[i][j].ToString());
+                            }
+                            Data.Add(row);
                         }
-                        Data.Add(row);
                     }
+
+                    //WorkBook workbook = WorkBook.Load(filePath);
+                    // выбор рабочего листа
+                    //WorkSheet sheet = workbook.DefaultWorkSheet;
+
+                    //for (int i = 0; i < sheet.RowCount; i++)
+                    //{
+                    //    var row = new List<string>();
+                    //    for (int j = 0; j < sheet.ColumnCount; j++)
+                    //    {
+                    //        row.Add(sheet.GetCellAt(i, j).Value.ToString());
+                    //    }
+                    //    Data.Add(row);
+                    //}
                 }
                 catch (Exception ex)
                 {
