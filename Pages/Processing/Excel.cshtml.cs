@@ -184,6 +184,8 @@ namespace Web2.Pages
                     string rootPath = _webHostEnvironment.ContentRootPath;
                     string filePath = Path.Combine(rootPath, fileName);
 
+                    Console.WriteLine(filePath);
+
                     using (var stream = System.IO.File.Create(filePath))
                     {
                         await file.CopyToAsync(stream);
