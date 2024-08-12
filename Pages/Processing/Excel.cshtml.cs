@@ -1,4 +1,3 @@
-//using IronXL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -173,7 +172,7 @@ namespace Web2.Pages
             Data.Clear();
             return Page();
         }
-
+        // подгрузка файла
         DataTableCollection ReadFromExcel(string filePath, ref List<string> sheetNames)
         {
             try
@@ -248,19 +247,6 @@ namespace Web2.Pages
                         }
                     }
 
-                    //WorkBook workbook = WorkBook.Load(filePath);
-                    // выбор рабочего листа
-                    //WorkSheet sheet = workbook.DefaultWorkSheet;
-
-                    //for (int i = 0; i < sheet.RowCount; i++)
-                    //{
-                    //    var row = new List<string>();
-                    //    for (int j = 0; j < sheet.ColumnCount; j++)
-                    //    {
-                    //        row.Add(sheet.GetCellAt(i, j).Value.ToString());
-                    //    }
-                    //    Data.Add(row);
-                    //}
                 }
                 catch (Exception ex)
                 {
